@@ -25,4 +25,8 @@ $ ./jsEsgrima serve
 
 ## How to integrate in my application?
 
+If you want to test, add it now.
+
+<script src="http://localhost:9327/jsEsgrima.js">
+
 
