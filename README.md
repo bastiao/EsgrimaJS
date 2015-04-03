@@ -22,9 +22,11 @@ their phiolosofy is a bit different.
 
 ## Architecture
 
+![Architecture](docs/arch.jpg)
 
-
+- [Pipeline](docs/Pipeline.md)
 - [Communication](docs/Communication.md)
+
 
 ## Known issues
 
