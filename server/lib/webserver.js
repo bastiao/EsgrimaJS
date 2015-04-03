@@ -4,7 +4,8 @@
   */
 
 
-//import {Confis} from 'consts'
+import {Configs} from './configs'
+
 var colors = require('colors');
 var colors = require('colors/safe');
 
@@ -12,6 +13,8 @@ var colors = require('colors/safe');
 var error = colors.red;
 var debug = colors.rainbow;
 error('this is red');
+console.log(colors.black.bgWhite(Configs));
+console.log(colors.black.bgWhite(Configs.port));
 
 // set theme
 colors.setTheme({
