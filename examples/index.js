@@ -4,9 +4,6 @@ describe("A suite", function() {
     console.log("lol");
     console.log("lol");
     console.log("lol");
-
-
-
     expect(true).toBe(true);
 
   });
