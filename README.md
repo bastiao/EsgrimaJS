@@ -7,7 +7,6 @@
 ## The problem
 
 
-
 ## Are you able to integrate your code? Why are you create another test framework?
 
 I'm running of time and I just have a weekend to built this tool.
@@ -15,6 +14,10 @@ Of course, I want to integrate it in another framework such as Karma, but
 their phiolosofy is a bit different.
 
 ## Architecture
+
+
+- [HowTo](docs/HOWTO.md)
+- [Communication](docs/Communication.md)
 
 
 
