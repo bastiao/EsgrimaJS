@@ -1,10 +1,32 @@
 # JS Esgrima
 
+Do you need to do Javascript testing in a distributed way? With
+multiple windows, multiple screen, remote places or whatever?
+And all the tests need to communicate? Use this framework!
 
-## Do you need to do Javascript testing in multiple windows and screen?
+
+## Why we built another framework?
 
 
-## The problem
+Common, there are a lot of frameworks to test javascript. And it is not
+another one. We take advantage of the tests frameworks that already exists.
+
+But is it a test runner? Yes. And yes, we also take advantage of what exists in
+the moment. And we hope we can propose an integration of this one with
+a most broader and used framework by the community (we are quite new, and nobody
+knows it.)
+
+Everything started, because we have to test a chrome app (see Chrome App) with
+multi monitor. Yes, you click a button in one screen, an action happened in
+another monitor. And yes, we need also test interface. The most impartant issue that we face, was related with testing in
+the same application, different things, and how can we execute an operation
+in one window and check if the value changed in other one (tipically multi monitor
+scenario).
+
+Let's mix it together, and do a real test framework for javascript and
+web browser framework. We do not real Web Drivers, or whatever. We are embeeded on
+the application.
+
 
 
 ## How to use?

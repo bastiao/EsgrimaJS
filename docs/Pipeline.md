@@ -22,4 +22,13 @@ the results in another one.
 ## Pipeline
 
 
-To tackle the issue, our architecture is totally event-driven.
+To tackle the issue, our architecture is totally event-driven. Basically, the test suite has a list of tests
+that are exectuting all, only open order of the server.
+
+So, it is a bit similar to the Karma Test Runner by Vojta Jína [https://github.com/karma-runner/karma/].
+But it has a strong difference, while they have a own URL to execute the tests,
+the goal of our test framework is execute the tests in the web application and take advantage of
+instanced javascript objects (if it is really possible due to the closures).
+
+
+
