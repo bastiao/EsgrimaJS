@@ -1,3 +1,3 @@
 
 
-![Architecture](arch.jpg)
+![Architecture](docs/arch.jpg)
