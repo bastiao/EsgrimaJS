@@ -1,4 +1,4 @@
-# JS Esgrima
+# EsgrimaJS
 
 Do you need to do Javascript testing in a distributed way? With
 multiple windows, multiple screen, remote places or whatever?
