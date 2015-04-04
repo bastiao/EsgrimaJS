@@ -1,12 +1,11 @@
 
 class EsgrimaAction {
 
-
     constructor(name)
     {
 
     }
-    run (completeCallback){
+    run(completeCallback){
 
     }
 

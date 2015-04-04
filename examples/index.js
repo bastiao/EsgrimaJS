@@ -1,8 +1,9 @@
 // See mocha
 
-var EsgrimaTestSuite = {}
-var EsgrimaActions = {}
+import {EsgrimaInstance} from '../client/esgrima';
 
+var EsgrimaTestSuite = [];
+var EsgrimaActions = {};
 
 
 var jsEsgrima = function(description, callbackOfTests, group){
@@ -14,6 +15,7 @@ var jsEsgrima = function(description, callbackOfTests, group){
         'callbackOfTests':callbackOfTests,
         'group': group});
 };
+
 
 jsEsgrima("Search for Something", function() {
   it("contains spec with an expectation", function() {
@@ -32,5 +34,12 @@ jsEsgrima("Look for the result", function() {
   });
 }, 'results');
 
+EsgrimaTestSuite.shift();
+console.log("Register the Test Suite!");
+console.log(EsgrimaInstance);
 
+console.log("Reading the rests");
+EsgrimaInstance.register(EsgrimaTestSuite);
+var testSuiteList = EsgrimaInstance.getTests();
+console.log(testSuiteList);
 export {EsgrimaTestSuite}

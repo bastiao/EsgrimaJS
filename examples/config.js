@@ -1,4 +1,7 @@
 
+
+import {EsgrimaInstance} from '../client/esgrima';
+
 var jsEsgrimaGroups = {
 
     'search': function () {
@@ -9,9 +12,10 @@ var jsEsgrimaGroups = {
     'results' : function () {
         var results = document.getElementById("results");
         return results!==undefined;
-
     }
 }
+
+EsgrimaInstance.registerGroups(jsEsgrimaGroups);
 
 export {jsEsgrimaGroups}
 

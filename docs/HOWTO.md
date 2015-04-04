@@ -18,9 +18,10 @@ npm install jsEsgrima
 
 ## Running the server:
 
+```
 $ ./jsEsgrima build
 $ ./jsEsgrima serve
-
+```
 
 
 ## How to integrate in my application?
