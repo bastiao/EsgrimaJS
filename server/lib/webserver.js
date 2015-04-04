@@ -7,6 +7,8 @@ import {Configs} from './configs'
 import {DEBUG} from './configs'
 
 
+import {StartHandler} from './handlers/start'
+
 
 
 //import {colors} from 'colors/safe';
@@ -18,7 +20,7 @@ var colors = require('colors/safe');
 /** Welcome message */
 console.info(colors.black.bgYellow("Welcome to JS Esgrima - Test Framework"));
 console.info(colors.black.bgWhite("Listen on: "  + Configs.port));
-console.info(colors.black.bgWhite("Debug : "  + DEBUG));
+console.info(colors.black.bgRed("Debug : "  + DEBUG));
 
 
 /** Start the Web Socket Server @ socket.io */
@@ -45,6 +47,8 @@ function handler (req, res) {
     res.end(data);
   });
 }
+
+StartHandler(io);
 
 var chat = io
   .of('/chat')
