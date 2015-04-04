@@ -28,12 +28,9 @@ web browser framework. We do not real Web Drivers, or whatever. We are embeeded 
 the application.
 
 
-
 ## How to use?
 
 - [How To Install and Use?](docs/HOWTO.md)
-
-
 
 
 ## Are you able to integrate your code? Why are you create another test framework?

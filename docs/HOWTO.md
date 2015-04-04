@@ -28,7 +28,8 @@ $ ./jsEsgrima serve
 If you want to test, add it now.
 
 ```
-<script src="http://localhost:9327/EsgrimaTestSet.js">
-<script src="http://localhost:9327/EsgrimaClient.js">
+<script src="http://localhost:9001/EsgrimaTestSet.js"/>
+<script src="http://localhost:9001/EsgrimaClient.js"/>
+
 ```
 

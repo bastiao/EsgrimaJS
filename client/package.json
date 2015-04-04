@@ -24,7 +24,6 @@
   "directories": {
     "lib": "./lib"
   },
-  "main": "./lib/cucumber",
   "engines": {
     "node": "0.8 || 0.10 || 0.11 || >= 1.0.0"
   },
@@ -50,17 +49,16 @@
     "envify": "^3.0.0",
     "jest-cli": "~0.1.17",
     "uglify-js": "~2.4.15",
-    "watchify": "^2.1.1"
+    "watchify": "^3.1"
   },
   "scripts": {
-    "start": "watchify -o esgrimajsClient.js -v -d .",
-    "build": "NODE_ENV=production ./node_modules/browserify/bin/cmd.js . -t 6to5ify --full-path=false | uglifyjs -cm > js/bundle.min.js",
+    "start": "watchify -o esgrimajsClient.js -v -d esgrima.js TestLoader.js EsgrimaAction.js",
+    "build": "NODE_ENV=production ./node_modules/browserify/bin/cmd.js . -t 6to5ify --full-path=false | uglifyjs -cm > esgrimajsClient.min.js",
     "test": "jest"
   },
   "browserify": {
     "debug": true,
     "transform": [
-      "reactify",
       "6to5ify",
       "browserify-shim",
       "envify"
@@ -73,9 +71,6 @@
         "jquery:$"
       ]
     }
-  },
-  "jest": {
-    "rootDir": "./js"
   },
 
 

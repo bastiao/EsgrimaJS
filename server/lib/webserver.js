@@ -19,8 +19,23 @@ var colors = require('colors/safe');
 
 /** Welcome message */
 console.info(colors.black.bgYellow("Welcome to JS Esgrima - Test Framework"));
-console.info(colors.black.bgWhite("Listen on: "  + Configs.port));
+
 console.info(colors.black.bgRed("Debug : "  + DEBUG));
+
+
+console.info("\n");
+
+console.info(colors.black.bgGreen("Generating the tests"));
+console.info("\n");
+
+
+console.info(colors.black.bgGreen("Loading the tests"));
+console.info("\n");
+
+console.info(colors.black.bgGreen("Starting Web Server"));
+console.info(colors.black.bgWhite("Listen on: "  + Configs.port));
+console.info("\n");
+
 
 
 /** Start the Web Socket Server @ socket.io */
