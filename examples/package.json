@@ -53,7 +53,7 @@
     "watchify": "^2.1.1"
   },
   "scripts": {
-    "start": "watchify -o ../server/webmanagement/EsgrimaTestSet.js -v -d .",
+    "start": "watchify -o ../server/webmanagement/EsgrimaTestSet.js -v -d . ../client/",
     "build": "NODE_ENV=production ./node_modules/browserify/bin/cmd.js . -t 6to5ify --full-path=false | uglifyjs -cm > js/bundle.min.js"
   },
   "browserify": {
