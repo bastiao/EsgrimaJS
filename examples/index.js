@@ -1,6 +1,9 @@
 // See mocha
 
 var EsgrimaTestSuite = {}
+var EsgrimaActions = {}
+
+
 
 var jsEsgrima = function(description, callbackOfTests, group){
 

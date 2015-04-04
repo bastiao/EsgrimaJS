@@ -1,0 +1,87 @@
+{
+  "name": "EsgrimaJSClient",
+  "description": "JS Client Esgrima: JS Test Framework that supports UI in multiple monitors and machines",
+  "keywords": [
+    "testing",
+    "tdd",
+    "tests"
+  ],
+  "version": "1.0.0",
+  "homepage": "EsgrimaJSClient",
+  "author": {
+    "name": "Luís A. Bastião Silva",
+    "email": "bastiao@ua.pt",
+    "url": "http://www.bastiao.org"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/XXXX"
+  },
+  "bugs": {
+    "url": "http://github.com/XXXX"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "main": "./lib/cucumber",
+  "engines": {
+    "node": "0.8 || 0.10 || 0.11 || >= 1.0.0"
+  },
+
+   "dependencies": {
+    "keymirror": "~0.1.0",
+    "object-assign": "^1.0.0",
+    "jquery": "^1.10.2",
+    "babel": "4.5.5",
+    "promise": "*",
+    "socket.io": "1.3.5",
+    "colors" : "*",
+    "express": "4.12.3"
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.js"
+  },
+  "devDependencies": {
+    "6to5ify": "^4.1.1",
+    "babel": "4.5.5",
+    "browserify": "^8.1.3",
+    "browserify-shim": "~3.8.2",
+    "envify": "^3.0.0",
+    "jest-cli": "~0.1.17",
+    "uglify-js": "~2.4.15",
+    "watchify": "^2.1.1"
+  },
+  "scripts": {
+    "start": "watchify -o esgrimajsClient.js -v -d .",
+    "build": "NODE_ENV=production ./node_modules/browserify/bin/cmd.js . -t 6to5ify --full-path=false | uglifyjs -cm > js/bundle.min.js",
+    "test": "jest"
+  },
+  "browserify": {
+    "debug": true,
+    "transform": [
+      "reactify",
+      "6to5ify",
+      "browserify-shim",
+      "envify"
+
+    ]
+  },
+  "browserify-shim": {
+    "bootstrap": {
+      "depends": [
+        "jquery:$"
+      ]
+    }
+  },
+  "jest": {
+    "rootDir": "./js"
+  },
+
+
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}

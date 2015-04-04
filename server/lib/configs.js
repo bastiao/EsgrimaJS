@@ -20,7 +20,4 @@ console.log = function() {
     }
 }
 
-
-
 export {Configs, DEBUG, TESTS_DIRECTORY}
-
