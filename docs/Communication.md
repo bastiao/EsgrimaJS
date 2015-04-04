@@ -23,11 +23,3 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 | waitFor       | wait for an event     |
 | is            | is available          |
 | value         | value is              |
-
-
-
-
-
-
-
-

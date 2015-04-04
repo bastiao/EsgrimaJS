@@ -13,5 +13,5 @@ var jsEsgrimaGroups = {
     }
 }
 
-
+export {jsEsgrimaGroups}
 

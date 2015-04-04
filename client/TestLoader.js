@@ -4,4 +4,11 @@
 class TestExecuter
 {
 
+
+    constructor(testSuite) {
+    }
+
+
+
+
 }

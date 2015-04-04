@@ -46,7 +46,6 @@ function handler (req, res) {
   });
 }
 
-
 var chat = io
   .of('/chat')
   .on('connection', function (socket) {
