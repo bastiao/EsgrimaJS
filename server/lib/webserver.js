@@ -4,18 +4,49 @@
 
 
 import {Configs} from './configs'
+import {DEBUG} from './configs'
+
+
+
+
+//import {colors} from 'colors/safe';
+
 var colors = require('colors');
 var colors = require('colors/safe');
 
 
 /** Welcome message */
-console.log(colors.black.bgYellow("Welcome to JS Esgrima - Test Framework"));
-console.log(colors.black.bgWhite("Listen on: "  + Configs.port));
+console.info(colors.black.bgYellow("Welcome to JS Esgrima - Test Framework"));
+console.info(colors.black.bgWhite("Listen on: "  + Configs.port));
+console.info(colors.black.bgWhite("Debug : "  + DEBUG));
 
 
 /** Start the Web Socket Server @ socket.io */
 
-var io = require('socket.io')(9001);
+var app = require('http').createServer(handler)
+var io = require('socket.io')(app);
+var fs = require('fs');
+
+app.listen(Configs.port);
+
+function handler (req, res) {
+  //console.log(req);
+  console.log(req.url);
+
+  console.log(__dirname);
+  fs.readFile(__dirname + '/../webmanagement'+req.url,
+  function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Error loading index.html');
+    }
+
+    res.writeHead(200);
+    res.end(data);
+  });
+}
+
+
 var chat = io
   .of('/chat')
   .on('connection', function (socket) {
