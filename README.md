@@ -31,7 +31,7 @@ the application.
 
 ## How to use?
 
-- [HowTo](docs/HOWTO.md)
+- [How To Install and Use?](docs/HOWTO.md)
 
 
 
