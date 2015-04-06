@@ -2,6 +2,12 @@
 
 import {EsgrimaInstance} from '../client/esgrima';
 
+import {EsgrimaCommandInstance} from '../common/EsgrimaCommand';
+import {EsgrimaAssertationInstance} from '../common/EsgrimaAssertation';
+
+
+var EsgrimaJSCommand =  EsgrimaCommandInstance;
+var EsgrimaJSAssertation =  EsgrimaAssertationInstance;
 
 var EsgrimaTestSuite = [];
 var EsgrimaActions = {};

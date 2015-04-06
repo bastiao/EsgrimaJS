@@ -52,7 +52,7 @@
     "watchify": "^3.1"
   },
   "scripts": {
-    "start": "watchify -o server/lib/bundle.js -v -d server/lib",
+    "start": "watchify -o server/lib/bundle.js -v -d common client server/lib",
     "build": "NODE_ENV=production ./node_modules/browserify/bin/cmd.js . -t 6to5ify --full-path=false | uglifyjs -cm > js/bundle.min.js",
     "test": "jest"
   },
