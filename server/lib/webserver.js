@@ -38,47 +38,19 @@ console.info("\n");
 
 /** Start the Web Socket Server @ socket.io */
 
-var app = require('http').createServer(handler)
-var io = require('socket.io')(app);
-var fs = require('fs');
 
-app.listen(Configs.port);
+var express = require('express');
+var app = express();
+var server = app.listen(Configs.port);
+var io = require('socket.io').listen(server);
 
-function handler (req, res) {
-  //console.log(req);
-  console.log(req.url);
+app.get("/api/", function(req, res){
+    res.send("It works!");
+});
 
-  console.log(__dirname);
-  fs.readFile(__dirname + '/../webmanagement'+req.url,
-  function (err, data) {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading index.html');
-    }
+app.use(express.static(__dirname + '/'));
 
-    res.writeHead(200);
-    res.end(data);
-  });
-}
+console.log('Express server started on port %s', app);
 
 StartHandler(io);
-
-var chat = io
-  .of('/chat')
-  .on('connection', function (socket) {
-    socket.emit('a message', {
-        that: 'only'
-      , '/chat': 'will get'
-    });
-    chat.emit('a message', {
-        everyone: 'in'
-      , '/chat': 'will get'
-    });
-  });
-
-var news = io
-  .of('/news')
-  .on('connection', function (socket) {
-    socket.emit('item', { news: 'item' });
-  });
 

@@ -1,7 +1,7 @@
 # Protocol of communication
 
 
-## Client Setup
+## Server Setup
 
 
 | Method                     | Description           |
@@ -10,6 +10,8 @@
 | disconnect                 | disconnect            |
 | groups                     | groups                |
 | clients                    | connected clients     |
+| start                      | start test            |
+| stop                       | stop test             |
 
 
 ## Test Setup
