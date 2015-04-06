@@ -1,5 +1,4 @@
-![Logo](docs/logo.png)
-{:.some-css-class width="200"}
+![Logo](docs/logo_small.png)
 
 
 # EsgrimaJS
