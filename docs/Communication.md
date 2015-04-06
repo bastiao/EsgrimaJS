@@ -32,20 +32,22 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 
 ### Assertations 
 
-| Method            | Description           |
-| ----------------- |-----------------------|
-| waitFor           | wait for an event     |
-| is                | is available          |
-| value             | value is              |
+| Method            | Description                                 |
+| ----------------- |---------------------------------------------|
+| elementPresent    | wait for an event                           |
+| elementNotPresent | wait for an event                           |
+| value             | value is                                    |
+| custom            | custom function (can be defined in tests)   |
+
 
 ### Commands
 
-| Method            | Description           |
-| ----------------- |-----------------------|
-| waitFor           | wait for an event     |
-| is                | is available          |
-| value             | value is              |
-
+| Method                        | Description                     |
+| ----------------------------- |---------------------------------|
+| waitForElementPresent         | wait for an event               |
+| setValue                      | is available                    |
+| value                         | value is                        |
+| custom                        | custom command                  |
 
 
 Note: this also is based on API from nightwatcher.js (inspired from).
