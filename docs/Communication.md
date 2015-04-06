@@ -14,6 +14,8 @@
 
 ## Test Setup
 
+| Method                     | Description           |
+| -------------------------- |:---------------------:|
 | setupContext               | setup the tests       |
 | error                      | report error          |
 | result                     | report the result     |
