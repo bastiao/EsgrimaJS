@@ -7,9 +7,12 @@ var ServerStartHandler= function(app, io)
 {
 
     app.get("/api/start", function(req, res){
-        io.emit('some event', { for: 'everyone' });
+        // Send the message for all the clients
+        io.emit({command:"start", group:'all'}, { for: 'everyone' });
+        
+        // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');
-        res.send({result:"works"});
+        res.send({command:"start", group:'all'});
         
     });
     
@@ -19,7 +22,12 @@ var ServerStopHandler= function(app, io)
 {
 
     app.get("/api/stop", function(req, res){
-        res.send("It works!");
+        // Send the message for all the clients
+        io.emit({command:"stop", group:'all'}, { for: 'everyone' });
+
+        // Return the message (response to the request)
+        res.setHeader('Content-Type', 'application/json');
+        res.send({command:"stop", group:'all'});
     });
 
 }
@@ -29,7 +37,10 @@ var ServerClientsHandler= function(app, io)
 {
 
     app.get("/api/clients", function(req, res){
-        res.send("It works!");
+        // Return the message (response to the request)
+        res.setHeader('Content-Type', 'application/json');
+        // TODO (bastiao): implement it in the future!
+        res.send({command:"clients", group:'all', clients: clients});
     });
 
 }
@@ -38,13 +49,28 @@ var ServerGroupsHandler= function(app, io)
 {
 
     app.get("/api/groups", function(req, res){
-        res.send("It works!");
+        // Return the message (response to the request)
+        res.setHeader('Content-Type', 'application/json');
+        var clients = io.sockets.clients();
+        
+        res.send({command:"clients", group:'all', groups: clients});
     });
 
 }
 
+var RegisterServerServices = function(app, io)
+{
+    ServerStartHandler(app,io);
+    ServerStartHandler(app,io);
+    ServerStopHandler(app,io);
+    ServerClientsHandler(app,io);
+    ServerGroupsHandler(app,io);
 
-export {ServerStartHandler, ServerStopHandler, ServerClientsHandler, ServerGroupsHandler}
+
+}
+
+
+export {RegisterServerServices}
 
 
 

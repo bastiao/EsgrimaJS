@@ -8,7 +8,7 @@ import {DEBUG} from './configs'
 
 
 import {StartHandler} from './handlers/start'
-import {ServerStartHandler} from './handlers/server/ServerServices'
+import {RegisterServerServices} from './handlers/server/ServerServices'
 
 
 //import {colors} from 'colors/safe';
@@ -48,8 +48,6 @@ app.get("/api/", function(req, res){
     res.send("It works!");
 });
 
-app.use(express.static(__dirname + '/'));
+app.use("/web", express.static(__dirname + '/../webmanagement/'));
 
-StartHandler(io);
-ServerStartHandler(app,io);
-
+RegisterServerServices(app, io);
