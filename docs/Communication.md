@@ -5,7 +5,7 @@
 
 
 | Method                     | Description           |
-| -------------------------- |:---------------------:|
+| -------------------------- |-----------------------|
 | connect                    | connect to server     |
 | disconnect                 | disconnect            |
 | groups                     | groups                |
@@ -15,7 +15,7 @@
 ## Test Setup
 
 | Method                     | Description           |
-| -------------------------- |:---------------------:|
+| -------------------------- |-----------------------|
 | setupContext               | setup the tests       |
 | error                      | report error          |
 | result                     | report the result     |
@@ -33,7 +33,7 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 ### Assertations 
 
 | Method            | Description           |
-| ----------------- |:---------------------:|
+| ----------------- |-----------------------|
 | waitFor           | wait for an event     |
 | is                | is available          |
 | value             | value is              |
@@ -41,7 +41,7 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 ### Commands
 
 | Method            | Description           |
-| ----------------- |:---------------------:|
+| ----------------- |-----------------------|
 | waitFor           | wait for an event     |
 | is                | is available          |
 | value             | value is              |
