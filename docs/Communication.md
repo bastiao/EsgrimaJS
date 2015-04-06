@@ -50,4 +50,5 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 | custom                        | custom command                  |
 
 
+
 Note: this also is based on API from nightwatcher.js (inspired from).

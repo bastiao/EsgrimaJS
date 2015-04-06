@@ -1,6 +1,6 @@
 
 
-class EsgrimaAction {
+class EsgrimaCommand {
 
     constructor(name)
     {
@@ -16,5 +16,4 @@ class EsgrimaAction {
     }
 }
 
-
-export {EsgrimaAction}
+export {EsgrimaCommand}

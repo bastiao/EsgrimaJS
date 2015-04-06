@@ -1,14 +1,9 @@
 
 
-import {EsgrimaAction} from '../client/EsgrimaAction'
+import {EsgrimaCommand} from '../client/EsgrimaCommand'
 
-class Search extends EsgrimaAction
+class Search extends EsgrimaCommand
 {
-
-    
-    
-
-
 
 }
 
