@@ -30,5 +30,8 @@ But it has a strong difference, while they have a own URL to execute the tests,
 the goal of our test framework is execute the tests in the web application and take advantage of
 instanced javascript objects (if it is really possible due to the closures).
 
-
+### Workflow
+ 
+ The tests are loaded in all the event processors (test applications). The event mediator (server) will control the start
+ of the process. They also has the tests loaded and knows how the tests flows. 
 

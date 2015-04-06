@@ -2,6 +2,7 @@
 
 import {EsgrimaInstance} from '../client/esgrima';
 
+
 var EsgrimaTestSuite = [];
 var EsgrimaActions = {};
 

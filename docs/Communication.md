@@ -1,29 +1,26 @@
 # Protocol of communication
 
 
-## Test Setup
-
-- setupContext
-- error
-- result
-- complete
-- info
-- loaded
-- start
-- store
+## Client Setup
 
 
 | Method                     | Description           |
 | -------------------------- |:---------------------:|
-| connect                    | wait for an event     |
-| setupContext               | wait for an event     |
-| error                      | is available          |
-| result                     | value is              |
-| complete                   | value is              |
-| info                       | value is              |
-| loaded                     | value is              |
-| start                      | value is              |
-| store                      | value is              |
+| connect                    | connect to server     |
+| disconnect                 | disconnect            |
+| groups                     | groups                |
+| clients                    | connected clients     |
+
+
+## Test Setup
+
+| setupContext               | setup the tests       |
+| error                      | report error          |
+| result                     | report the result     |
+| complete                   | test is complete      |
+| info                       | status of the test    |
+| start                      | start test            |
+| stop                       | stop test             |
 
 
 Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech Jína"
@@ -37,3 +34,6 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 | is                | is available          |
 | value             | value is              |
 | connect           | value is              |
+
+
+Note: this also is based on API from nightwatcher.js (inspired from).
