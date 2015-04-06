@@ -13,4 +13,4 @@ var ClientServiceConnect = function (socket)
     });
 };
 
-export {ClientServiceStart};
+export {ClientServiceConnect};

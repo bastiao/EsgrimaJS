@@ -1,6 +1,9 @@
+![Logo](docs/logo.png)
+{:.some-css-class width="200"}
+
+
 # EsgrimaJS
 
-![Logo](docs/logo.png)
 
 Do you need to do Javascript testing in a distributed way? With
 multiple windows, multiple screen, remote places or whatever?
