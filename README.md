@@ -1,6 +1,4 @@
 ![Logo](docs/logo_small.png)
-
-
 # EsgrimaJS
 
 
