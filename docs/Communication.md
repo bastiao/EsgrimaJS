@@ -28,12 +28,22 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 
 ## In the context of the tests (inside):
 
+### Assertations 
+
 | Method            | Description           |
 | ----------------- |:---------------------:|
 | waitFor           | wait for an event     |
 | is                | is available          |
 | value             | value is              |
-| connect           | value is              |
+
+### Commands
+
+| Method            | Description           |
+| ----------------- |:---------------------:|
+| waitFor           | wait for an event     |
+| is                | is available          |
+| value             | value is              |
+
 
 
 Note: this also is based on API from nightwatcher.js (inspired from).
