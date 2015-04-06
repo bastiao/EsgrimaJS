@@ -3,33 +3,35 @@
  */
 
 
-
-    
-    
 import {Configs} from './configs';
+
+
+import {ClientServiceStart} from './handlers/start';
+import {ClientServiceConnect} from './handlers/connect';
+
+
+
 var io = require('socket.io');
 
 
-
-socket.on('connect', function () {
-    socket.send('hi');
-}
-socket.on('message', function (msg) {
-    // my msg
-});
-   
-    
     
 class EventProcessor {
-    
-    constructor()
-    {
+
+    constructor() {
         this.socket = io(Configs.url);
     }
-    
-    start()
-    {
+
+    start() {
+        
+        this.socket.on('connect', function () {
+            this.socket.send('hi');
+        });
 
     }
-    
+
+
+
 }
+
+
+export {EventProcessor}

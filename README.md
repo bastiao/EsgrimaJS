@@ -1,5 +1,7 @@
 # EsgrimaJS
 
+![Logo](docs/logo.png)
+
 Do you need to do Javascript testing in a distributed way? With
 multiple windows, multiple screen, remote places or whatever?
 And all the tests need to communicate? Use this framework!
