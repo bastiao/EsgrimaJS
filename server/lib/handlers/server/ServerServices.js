@@ -40,7 +40,7 @@ var ServerClientsHandler= function(app, io)
         // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');
         // TODO (bastiao): implement it in the future!
-        res.send({command:"clients", group:'all', clients: clients});
+        res.send({command:"clients", group:'all', clients: []});
     });
 
 }
@@ -51,9 +51,8 @@ var ServerGroupsHandler= function(app, io)
     app.get("/api/groups", function(req, res){
         // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');
-        var clients = io.sockets.clients();
-        
-        res.send({command:"clients", group:'all', groups: clients});
+        // TODO (bastiao): implement it in the future!
+        res.send({command:"clients", group:'all', groups: []});
     });
 
 }

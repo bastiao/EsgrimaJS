@@ -5,6 +5,8 @@ import {EsgrimaInstance} from '../client/esgrima';
 import {EsgrimaCommandInstance} from '../common/EsgrimaCommand';
 import {EsgrimaAssertationInstance} from '../common/EsgrimaAssertation';
 
+import {TestLoaderInstance} from '../common/TestLoader';
+
 
 var EsgrimaJSCommand =  EsgrimaCommandInstance;
 var EsgrimaJSAssertation =  EsgrimaAssertationInstance;
