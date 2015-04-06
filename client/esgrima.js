@@ -30,6 +30,10 @@ class EsgrimaJSLoader
     }
 }
 
+
+
+
+
 var EsgrimaInstance = new EsgrimaJSLoader();
 var testSuiteList = EsgrimaInstance.getTests();
 console.log("Loading with EsgrimaJSLoader");
@@ -38,9 +42,17 @@ if (appEnv.env!=="node")
 {
 
     window.$ = window.jQuery = require('jquery');
-    console.log("Load document inside esgrima.js");
-    console.log(document);
-    console.log(document.getElementById("results"));
+    $(document).ready(function () {
+        console.log("I don't want to play nice");
+    });
+    
+    $( document ).ready(function() {
+
+        console.log("Load document inside esgrima.js");
+        console.log(document);
+        console.log(document.getElementById("results"));
+
+    });
 
     setTimeout(function(){ console.log(document.getElementById("results")); }, 3000);
 
