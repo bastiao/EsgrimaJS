@@ -36,8 +36,6 @@ console.info(colors.black.bgGreen("Starting Web Server"));
 console.info(colors.black.bgWhite("Listen on: "  + Configs.port));
 console.info("\n");
 
-
-
 /** Start the Web Socket Server @ socket.io */
 
 var app = require('http').createServer(handler)
