@@ -8,7 +8,7 @@ import {DEBUG} from './configs'
 
 
 import {StartHandler} from './handlers/start'
-
+import {ServerStartHandler} from './handlers/server/ServerServices'
 
 
 //import {colors} from 'colors/safe';
@@ -50,7 +50,6 @@ app.get("/api/", function(req, res){
 
 app.use(express.static(__dirname + '/'));
 
-console.log('Express server started on port %s', app);
-
 StartHandler(io);
+ServerStartHandler(app,io);
 

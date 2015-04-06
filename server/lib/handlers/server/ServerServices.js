@@ -6,8 +6,11 @@
 var ServerStartHandler= function(app, io)
 {
 
-    app.get("/api/", function(req, res){
-        res.send("It works!");
+    app.get("/api/start", function(req, res){
+        io.emit('some event', { for: 'everyone' });
+        res.setHeader('Content-Type', 'application/json');
+        res.send({result:"works"});
+        
     });
     
 }
@@ -15,29 +18,26 @@ var ServerStartHandler= function(app, io)
 var ServerStopHandler= function(app, io)
 {
 
-    app.get("/api/", function(req, res){
+    app.get("/api/stop", function(req, res){
         res.send("It works!");
     });
 
 }
-
 
 
 var ServerClientsHandler= function(app, io)
 {
 
-    app.get("/api/", function(req, res){
+    app.get("/api/clients", function(req, res){
         res.send("It works!");
     });
 
 }
 
-
-
 var ServerGroupsHandler= function(app, io)
 {
 
-    app.get("/api/", function(req, res){
+    app.get("/api/groups", function(req, res){
         res.send("It works!");
     });
 
