@@ -55,8 +55,7 @@ var io = require('socket.io').listen(server);
 app.use("/web", express.static(__dirname + '/../webmanagement/'));
 
 
-
-var AnswerEventProcessorInstance = AnswerEventProcessor(io, EsgrimaInstance);
+var AnswerEventProcessorInstance = new AnswerEventProcessor(io, EsgrimaInstance);
 
 
 RegisterServerServices(app, io);

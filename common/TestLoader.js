@@ -6,7 +6,6 @@ class TestLoader
 {
 
     constructor() {
-        
 
     }
     
@@ -15,8 +14,9 @@ class TestLoader
         if (testSuite.length===0)
         {
             // Fuck.
+            throw "There is no test suite";
         }
-        this.listTests = testSuite;
+        this.testSuite = testSuite;
         this.groups = groups;
     }
     
@@ -24,6 +24,25 @@ class TestLoader
     {
         this.currentIndex = 0 ;
         this.currentTest = testSuite[this.currentIndex];
+    }
+    
+    runTest()
+    {
+        this.testRunning = new EsgrimaCommand(this.getCurrentTest());
+
+        
+    }
+    
+    
+    next()
+    {
+        this.currentIndex++ ;
+        this.currentTest = this.testSuite[this.currentIndex];
+    }
+    
+    hasNext()
+    {
+        return (this.currentIndex+1)<this.testSuite.length;
     }
     
     getCurrentTest()

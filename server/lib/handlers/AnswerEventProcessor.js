@@ -13,7 +13,9 @@ import {ServiceElementNotPresent} from './assertations/elementNotPresent';
 
 import {ServiceTest} from './tests/testHandler';
 
-import {TestLoader} from 'common/TestLoader';
+import {TestLoader} from '../../../common/TestLoader';
+var colors = require('colors/safe');
+
 
 
 class AnswerEventProcessor {
@@ -21,7 +23,6 @@ class AnswerEventProcessor {
     constructor(io, EsgrimaInstance) {
         this.io = this.io;
         this.EsgrimaInstance = EsgrimaInstance;
-
         this.testLoader = new TestLoader(EsgrimaInstance.getTests());
 
     }
@@ -29,9 +30,23 @@ class AnswerEventProcessor {
     start()
     {
 
-        ServiceTest(io, this.testLoader);
+        console.info(colors.black.bgGreen("Starting WebSockets"));
+        //ServiceTest(io, this.testLoader);
+        io.on("connection", function (socket) {
+            console.info(colors.black.bgGreen("New connection, just to check "));
+            var interval = setInterval(function () {
+                socket.emit("tweet", tweet);
+            }, 1000);
 
-        
+            socket.on("disconnect", function () {
+                console.info(colors.black.bgGreen("Disconnect"));
+                clearInterval(interval);
+            });
+        });
+
+
+
+
     }
     
 }

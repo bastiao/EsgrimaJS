@@ -16,7 +16,10 @@ var EsgrimaJSAssertation =  EsgrimaAssertationInstance;
 
 var EsgrimaTestSuite = [];
 var EsgrimaActions = {};
+var jQuery = require('jquery');
 
+console.log(jQuery);
+console.log(jQuery.Event);
 
 var jsEsgrima = function(description, callbackOfTests, args, group){
 
@@ -38,19 +41,32 @@ jsEsgrima("Search for Something", function() {
   });
 }, {}, 'search');
 
-var e = jQuery.Event("keydown");
-e.which = 50; // # Some key code value
-jsEsgrima("t1", trigger, {id:'#search', event: e, group:"search", function (){}},
+
+
+jsEsgrima("t1", trigger, {id:'#search', event: function () {
+        var e = jQuery.Event("keydown");
+        e.which = 50; // # Some key code value
+        return e;
+    }
+    , group:"search", function (){}},
     'search');
 
-jsEsgrima("t2", trigger, {id:'#search', event: e, group:"search", function (){}},
+jsEsgrima("t2", trigger, {id:'#search', event: function () {
+        var e = jQuery.Event("keydown");
+        e.which = 50; // # Some key code value
+        return e;
+    }, group:"search", function (){}},
     'search');
 
 jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group: "search", 
         callBackResult: function (){}},
     'search');
 
-jsEsgrima("t3", trigger, {id:'#search', event: e, group:"search", function (){}},
+jsEsgrima("t3", trigger, {id:'#search', event: function () {
+        var e = jQuery.Event("keydown");
+        e.which = 50; // # Some key code value
+        return e;
+    }, group:"search", function (){}},
     'search');
 
 

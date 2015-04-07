@@ -1,7 +1,6 @@
 
 
 import {appEnv} from '../common/enviroment';
-import {EventProcessor} from './EventProcessor';
 
 
 class EsgrimaJSLoader
@@ -32,18 +31,8 @@ class EsgrimaJSLoader
 }
 
 
-
-
-
 var EsgrimaInstance = new EsgrimaJSLoader();
-var testSuiteList = EsgrimaInstance.getTests();
-console.log("Loading with EsgrimaJSLoader");
-
-var EventProcessorInstance = new EventProcessor();
-// Now it is waiting for events! :D gotta go!
-EventProcessorInstance.start();
-
-
+console.log(appEnv);
 if (appEnv.env!=="node")
 {
 

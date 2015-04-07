@@ -3,13 +3,12 @@
  */
 
 
-
 var ClientServiceConnect = function (socket)
 {
     socket.on('connect', function (data) {
         console.log("Connected");
         console.log(data);
-        socket.emit('connect', { connect: 'true' });
+        //socket.emit('connect', { connect: 'true' });
     });
 };
 

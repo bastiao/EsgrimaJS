@@ -64,8 +64,6 @@ var RegisterServerServices = function(app, io)
     ServerStopHandler(app,io);
     ServerClientsHandler(app,io);
     ServerGroupsHandler(app,io);
-
-
 }
 
 

@@ -8,9 +8,9 @@ import {Configs} from './configs';
 
 import {ClientServiceStart} from './handlers/start';
 import {ClientServiceConnect} from './handlers/connect';
-
-var io = require('socket.io');
-
+console.log("Require Socket IO");
+var io = require('socket.io-client');
+console.log(io);
 class EventProcessor {
 
     constructor() {
@@ -18,8 +18,8 @@ class EventProcessor {
     }
 
     start() {
+        // on /start
         ClientServiceStart(this.socket);
-        ClientServiceConnect(this.socket);
     }
 
     getSocket()
