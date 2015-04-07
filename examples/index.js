@@ -37,14 +37,21 @@ jsEsgrima("Search for Something", function() {
   });
 }, 'search');
 
+var e = jQuery.Event("keydown");
+e.which = 50; // # Some key code value
+jsEsgrima("t1", trigger, {id:'#search', event: e, group:"search", function (){}},
+    'search');
 
-jsEsgrima("Search Click", function() {
-    var e = jQuery.Event("keydown");
-    e.which = 50; // # Some key code value
-    trigger("body",e );
-    
+jsEsgrima("t2", trigger, {id:'#search', event: e, group:"search", function (){}},
+    'search');
 
-}, 'searchClick', 'search')
+jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group: "search", callBackResult: function (){}},
+    'search');
+
+jsEsgrima("t3", trigger, {id:'#search', event: e, group:"search", function (){}},
+    'search');
+
+
 
 
 jsEsgrima("Look for the result", function() {

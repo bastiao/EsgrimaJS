@@ -37,31 +37,37 @@ esgrimajs().then(triggerNG);
 // Assertations 
 
 
-var elementPresent = function(id, timeout, group, callBackResult){
+var elementPresent = function(args){
+    //id, timeout, group, callBackResult
 
 };
 
 
-var elementNotPresent = function(id, timeout, group, callBackResult){
+var elementNotPresent = function(args){
+    //id, timeout, group, callBackResult
 
 };
 
-var value = function(id){
+var value = function(args){
+    //id
     $(id).value();
 };
 
 
 
 // Commands 
-var trigger = function(id, event, group, callBackResult){
+var trigger = function(args){
+    //id, event, group, callBackResult
     $(id).trigger(event);
 };
 
-var setValue = function(id, data, group, callBackResult){
+var setValue = function(args){
+    //id, data, group, callBackResult
     $(id).val(data);
 };
 
-var waitForElementPresent = function(id, timeout, group, callBackResult){
+var waitForElementPresent = function(args){
+    // id, timeout, group, callBackResult
     
     
 };
