@@ -49,6 +49,7 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 | waitForElementPresent         | wait for an event               |
 | setValue                      | is available                    |
 | value                         | value is                        |
+| trigger                       | trigger                         |
 | custom                        | custom command                  |
 
 

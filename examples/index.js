@@ -7,6 +7,7 @@ import {EsgrimaAssertationInstance} from '../common/EsgrimaAssertation';
 
 import {TestLoaderInstance} from '../common/TestLoader';
 
+import {jsEsgrimaGroups} from './config';
 
 var EsgrimaJSCommand =  EsgrimaCommandInstance;
 var EsgrimaJSAssertation =  EsgrimaAssertationInstance;
@@ -33,6 +34,11 @@ jsEsgrima("Search for Something", function() {
 
   });
 }, 'search');
+
+
+jsEsgrima("Search Click", function() {
+
+}, 'searchClick', 'search')
 
 
 jsEsgrima("Look for the result", function() {

@@ -22,10 +22,9 @@ class EventProcessor {
     }
 
     start() {
+        ClientServiceStart(this.socket);
+        ClientServiceConnect(this.socket);
         
-        this.socket.on('connect', function () {
-            this.socket.send('hi');
-        });
 
     }
 
