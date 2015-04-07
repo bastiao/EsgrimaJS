@@ -6,8 +6,10 @@ import {EsgrimaCommandInstance} from '../common/EsgrimaCommand';
 import {EsgrimaAssertationInstance} from '../common/EsgrimaAssertation';
 
 import {TestLoaderInstance} from '../common/TestLoader';
-
 import {jsEsgrimaGroups} from './config';
+import {elementPresent, elementNotPresent, value, trigger, setValue, waitForElementPresent} from '../common/api';
+
+
 
 var EsgrimaJSCommand =  EsgrimaCommandInstance;
 var EsgrimaJSAssertation =  EsgrimaAssertationInstance;
@@ -37,6 +39,10 @@ jsEsgrima("Search for Something", function() {
 
 
 jsEsgrima("Search Click", function() {
+    var e = jQuery.Event("keydown");
+    e.which = 50; // # Some key code value
+    trigger("body",e );
+    
 
 }, 'searchClick', 'search')
 

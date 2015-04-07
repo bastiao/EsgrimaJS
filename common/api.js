@@ -37,30 +37,34 @@ esgrimajs().then(triggerNG);
 // Assertations 
 
 
-var elementPresent = function(id, event, callBackResult){
-    $(id).trigger(event);
+var elementPresent = function(id, timeout, group, callBackResult){
+
 };
 
 
-var elementNotPresent = function(id, event, callBackResult){
-    $(id).trigger(event);
+var elementNotPresent = function(id, timeout, group, callBackResult){
+
 };
 
-var value = function(id, event, callBackResult){
-    $(id).trigger(event);
+var value = function(id){
+    $(id).value();
 };
+
+
 
 // Commands 
-var trigger = function(id, event, callBackResult){
+var trigger = function(id, event, group, callBackResult){
     $(id).trigger(event);
 };
 
-var setValue = function(id, event, callBackResult){
-    $(id).trigger(event);
+var setValue = function(id, data, group, callBackResult){
+    $(id).val(data);
 };
 
-var waitForElementPresent = function(id, event, callBackResult){
-    $(id).trigger(event);
+var waitForElementPresent = function(id, timeout, group, callBackResult){
+    
+    
 };
 
 
+export {elementPresent, elementNotPresent, value, trigger, setValue, waitForElementPresent}

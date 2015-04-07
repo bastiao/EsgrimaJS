@@ -8,9 +8,43 @@ npm install jsEsgrima
 
 ## Where to write my tests?
 
+All the magic should start in a index.js: 
+
+```
+import {elementPresent, elementNotPresent, value, trigger, setValue, waitForElementPresent} from '../common/api';
+
+// Do the magic here! :D
+
+```
 
 ## How to configure?
 
+Add a config.js with the following content:
+
+```
+
+
+import {EsgrimaInstance} from '../client/esgrima';
+
+var jsEsgrimaGroups = {
+
+    'search': function () {
+        var search = document.getElementById("search");
+        return search!==undefined;
+
+    },
+    'results' : function () {
+        var results = document.getElementById("results");
+        return results!==undefined;
+    }
+}
+
+EsgrimaInstance.registerGroups(jsEsgrimaGroups);
+
+export {jsEsgrimaGroups}
+
+
+```
 
 ## Dev mode
 
