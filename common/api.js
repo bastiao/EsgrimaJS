@@ -50,7 +50,7 @@ var elementNotPresent = function(args){
 
 var value = function(args){
     //id
-    $(id).value();
+    $(args.id).value();
 };
 
 
@@ -58,12 +58,12 @@ var value = function(args){
 // Commands 
 var trigger = function(args){
     //id, event, group, callBackResult
-    $(id).trigger(event);
+    $(args.id).trigger(args.event);
 };
 
 var setValue = function(args){
     //id, data, group, callBackResult
-    $(id).val(data);
+    $(args.id).val(args.data);
 };
 
 var waitForElementPresent = function(args){

@@ -6,14 +6,12 @@
 import {Configs} from './configs'
 import {DEBUG} from './configs'
 
-import {StartHandler} from './handlers/start'
-import {RegisterServerServices} from './handlers/server/ServerServices'
+import {StartHandler} from './handlers/server/start';
+import {RegisterServerServices} from './handlers/server/ServerServices';
+import {AnswerEventProcessor} from './handlers/AnswerEventProcessor';
+
+
 import {appEnv} from '../../common/enviroment';
-
-
-
-
-
 
 
 /** TODO (bastiao) Fix the loading part, now it is static :-( 
@@ -33,7 +31,6 @@ var colors = require('colors/safe');
 console.info(colors.black.bgYellow("Welcome to JS Esgrima - Test Framework"));
 
 console.info(colors.black.bgRed("Debug : "  + DEBUG));
-
 
 console.info("");
 
@@ -56,5 +53,10 @@ var server = app.listen(Configs.port);
 var io = require('socket.io').listen(server);
 
 app.use("/web", express.static(__dirname + '/../webmanagement/'));
+
+
+
+var AnswerEventProcessorInstance = AnswerEventProcessor(io, EsgrimaInstance);
+
 
 RegisterServerServices(app, io);
