@@ -18,13 +18,14 @@ var EsgrimaTestSuite = [];
 var EsgrimaActions = {};
 
 
-var jsEsgrima = function(description, callbackOfTests, group){
+var jsEsgrima = function(description, callbackOfTests, args, group){
 
     // Here is possible to build the tests with QUnit, Mocha,
     // or whatever.
     // Based on Karma Test Runner design.
     EsgrimaTestSuite.push({'description': description,
         'callbackOfTests':callbackOfTests,
+        'args': args,
         'group': group});
 };
 
@@ -35,7 +36,7 @@ jsEsgrima("Search for Something", function() {
     expect(true).toBe(true);
 
   });
-}, 'search');
+}, {}, 'search');
 
 var e = jQuery.Event("keydown");
 e.which = 50; // # Some key code value
@@ -61,7 +62,7 @@ jsEsgrima("Look for the result", function() {
     expect(true).toBe(true);
 
   });
-}, 'results');
+}, {},'results');
 
 EsgrimaTestSuite.shift();
 console.log("Register the Test Suite!");

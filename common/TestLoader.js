@@ -6,6 +6,8 @@ class TestLoader
 {
 
     constructor() {
+        
+
     }
     
     register(testSuite, groups){
@@ -27,6 +29,19 @@ class TestLoader
     getCurrentTest()
     {
         
+    }
+
+    registerGroups(groups)
+    {
+        this.groups = groups;
+    }
+
+    getGroups(){
+        return this.groups;
+    }
+
+    getTests(){
+        return this.testSuite;
     }
     
     testSuite () {

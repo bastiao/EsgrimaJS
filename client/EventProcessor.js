@@ -28,6 +28,13 @@ class EventProcessor {
 
     }
 
+    getSocket()
+    {
+        return this.socket;
+        
+    }
+    
+    
 
 
 }
