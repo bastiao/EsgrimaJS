@@ -3,8 +3,12 @@
 
 ## First, you need to install the tool:
 
-npm install jsEsgrima
 
+```
+npm install
+npm start&
+./run_server.sh
+```
 
 ## Where to write my tests?
 
@@ -14,6 +18,32 @@ All the magic should start in a index.js:
 import {elementPresent, elementNotPresent, value, trigger, setValue, waitForElementPresent} from '../common/api';
 
 // Do the magic here! :D
+
+var e = jQuery.Event("keydown");
+e.which = 50; // # Some key code value
+jsEsgrima("t1", trigger, {id:'#search', event: e, group:"search", function (){}},
+    'search');
+
+jsEsgrima("t2", trigger, {id:'#search', event: e, group:"search", function (){}},
+    'search');
+
+jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group: "search",
+        callBackResult: function (){}},
+    'search');
+
+jsEsgrima("t3", trigger, {id:'#search', event: e, group:"search", function (){}},
+    'search');
+
+
+
+
+jsEsgrima("Look for the result", function() {
+  it("contains spec with an expectation", function() {
+    console.log("lol");
+    expect(true).toBe(true);
+
+  });
+}, 'results');
 
 ```
 

@@ -45,7 +45,8 @@ jsEsgrima("t1", trigger, {id:'#search', event: e, group:"search", function (){}}
 jsEsgrima("t2", trigger, {id:'#search', event: e, group:"search", function (){}},
     'search');
 
-jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group: "search", callBackResult: function (){}},
+jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group: "search", 
+        callBackResult: function (){}},
     'search');
 
 jsEsgrima("t3", trigger, {id:'#search', event: e, group:"search", function (){}},
