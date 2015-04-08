@@ -66,6 +66,8 @@ RegisterServerServices(app, io);
 var chat = io
     .of('/chat')
     .on('connection', function (socket) {
+        console.log(socket.conn.id)
+        
         socket.emit('message', {
             that: 'only'
             , '/chat': 'will get'
@@ -76,8 +78,10 @@ var chat = io
             , '/chat': 'will get'
         });
 
+        
         socket.on('disconnect', function(){
             console.log('user disconnected');
+            console.log(socket.conn.id);
         });
     });
 
@@ -85,6 +89,14 @@ var news = io
     .of('/news')
     .on('connection', function (socket) {
         console.log("emit bews");
+
+
+        socket.on('item', function(){
+            console.log('item arrived from client');
+            console.log(socket.conn.id);
+        });
+        
+        
         news.emit('item', { news: 'item' });
 
         socket.on('disconnect', function(){

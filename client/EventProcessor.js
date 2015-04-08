@@ -35,7 +35,7 @@ class EventProcessor {
         news.on('item', function (data) {
             console.log("item");
             console.log(data);
-            news.emit('items?');
+            news.emit('items');
         });
 
 

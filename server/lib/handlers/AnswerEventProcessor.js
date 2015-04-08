@@ -36,6 +36,7 @@ class AnswerEventProcessor {
         var controller = io
             .of('/')
             .on('connection', function (socket) {
+                groupsSockets[socket.conn.id] = {};
                 socket.emit('message', {
                     that: 'only'
                     , '/chat': 'will get'
@@ -50,6 +51,8 @@ class AnswerEventProcessor {
                     console.log('user disconnected');
                 });
             });
+
+        
 
         for(var i = 0, size = groups.length; i < size ; i++){
             var group = groups[i];
@@ -70,6 +73,8 @@ class AnswerEventProcessor {
                         console.log('user disconnected');
                     });
                 });
+
+            groupsSockets[group] = groupSocket;
             
         }
 
