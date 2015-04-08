@@ -8,8 +8,13 @@ var ServerStartHandler= function(app, io)
 
     app.get("/api/start", function(req, res){
         // Send the message for all the clients
-        io.emit({command:"start", group:'all'}, { for: 'everyone' });
         
+        console.log("Starting start");
+
+        
+        io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
+        io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
+
         // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');
         res.send({command:"start", group:'all'});

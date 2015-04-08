@@ -3,19 +3,11 @@
  */
     
     
-import {ServiceTrigger} from './commands/trigger';
-import {ServiceWaitForElementPresent} from './commands/waitForElementPresent';
-import {ServiceSetValue} from './commands/setValue';
-
-import {ServiceValue} from './assertations/value';
-import {ServiceElementPresent} from './assertations/elementPresent';
-import {ServiceElementNotPresent} from './assertations/elementNotPresent';
 
 import {ServiceTest} from './tests/testHandler';
 
 import {TestLoader} from '../../../common/TestLoader';
 var colors = require('colors/safe');
-
 
 
 class AnswerEventProcessor {
@@ -25,27 +17,61 @@ class AnswerEventProcessor {
         this.EsgrimaInstance = EsgrimaInstance;
         this.testLoader = new TestLoader(EsgrimaInstance.getTests());
 
+        /**
+         *  
+         * Contains the group sockets.
+         * For instance, for a particular group  
+         */
+        this.groupsSockets = {};
+
     }
 
     start()
     {
 
-        console.info(colors.black.bgGreen("Starting WebSockets"));
-        //ServiceTest(io, this.testLoader);
-        io.on("connection", function (socket) {
-            console.info(colors.black.bgGreen("New connection, just to check "));
-            var interval = setInterval(function () {
-                socket.emit("tweet", tweet);
-            }, 1000);
+        
+        
+        var groups = this.testLoader.getGroups();
 
-            socket.on("disconnect", function () {
-                console.info(colors.black.bgGreen("Disconnect"));
-                clearInterval(interval);
+        var controller = io
+            .of('/')
+            .on('connection', function (socket) {
+                socket.emit('message', {
+                    that: 'only'
+                    , '/chat': 'will get'
+                });
+                console.log("emit chat");
+                chat.emit('message2', {
+                    everyone: 'in'
+                    , '/chat': 'will get'
+                });
+
+                socket.on('disconnect', function(){
+                    console.log('user disconnected');
+                });
             });
-        });
 
+        for(var i = 0, size = groups.length; i < size ; i++){
+            var group = groups[i];
+            let groupSocket = io
+                .of('/'+group)
+                .on('connection', function (socket) {
+                    socket.emit('message', {
+                        that: 'only'
+                        , '/chat': 'will get'
+                    });
+                    console.log("emit chat");
+                    chat.emit('message2', {
+                        everyone: 'in'
+                        , '/chat': 'will get'
+                    });
 
-
+                    socket.on('disconnect', function(){
+                        console.log('user disconnected');
+                    });
+                });
+            
+        }
 
     }
     

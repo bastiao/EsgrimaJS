@@ -54,8 +54,41 @@ var io = require('socket.io').listen(server);
 
 app.use("/web", express.static(__dirname + '/../webmanagement/'));
 
+// List the groups!
+
 
 var AnswerEventProcessorInstance = new AnswerEventProcessor(io, EsgrimaInstance);
 
 
 RegisterServerServices(app, io);
+
+
+var chat = io
+    .of('/chat')
+    .on('connection', function (socket) {
+        socket.emit('message', {
+            that: 'only'
+            , '/chat': 'will get'
+        });
+        console.log("emit chat");
+        chat.emit('message2', {
+            everyone: 'in'
+            , '/chat': 'will get'
+        });
+
+        socket.on('disconnect', function(){
+            console.log('user disconnected');
+        });
+    });
+
+var news = io
+    .of('/news')
+    .on('connection', function (socket) {
+        console.log("emit bews");
+        news.emit('item', { news: 'item' });
+
+        socket.on('disconnect', function(){
+            console.log('user disconnected');
+        });
+        
+    });

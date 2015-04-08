@@ -18,8 +18,8 @@ var EsgrimaTestSuite = [];
 var EsgrimaActions = {};
 var jQuery = require('jquery');
 
-console.log(jQuery);
-console.log(jQuery.Event);
+//console.log(jQuery);
+//console.log(jQuery.Event);
 
 var jsEsgrima = function(description, callbackOfTests, args, group){
 

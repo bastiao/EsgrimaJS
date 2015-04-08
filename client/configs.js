@@ -7,7 +7,7 @@
 // Change here what you want.
 
 
-var Configs = {url: "http://localhost:9001/"}
+var Configs = {url: "http://localhost:9001/", wsUrl: "ws://localhost:9001/"}
 var DEBUG = true;
 
 
