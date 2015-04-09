@@ -29,8 +29,6 @@ class AnswerEventProcessor {
     start()
     {
 
-        
-        
         var groups = this.testLoader.getGroups();
 
         var controller = io
@@ -69,7 +67,9 @@ class AnswerEventProcessor {
                         let id = data.test.id;
                         let reports = data.test.reports;
                         let assertations = data.test.assertations;
-                        
+
+                        this.testLoader.completeTest(id, reports, assertations);
+
                     });
 
 

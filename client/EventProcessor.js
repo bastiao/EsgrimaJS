@@ -107,9 +107,17 @@ class EventProcessor {
 
         });
 
-            
-
-
+    }
+    
+    
+    executeTest(id)
+    {
+        // The code to execute the test
+        
+    }
+    executedTest(id, reports,assertations)
+    {
+        // The code to executed the test
 
     }
 

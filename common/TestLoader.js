@@ -29,8 +29,15 @@ class TestLoader
     runTest()
     {
         this.testRunning = new EsgrimaCommand(this.getCurrentTest());
+        return this.testRunning 
 
+    }
+    
+    completeTest(id, reports, assertations)
+    {
+        // Complete tests
         
+        // Check if it is ready to execute another test
     }
     
     
