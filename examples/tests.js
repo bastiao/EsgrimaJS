@@ -10,6 +10,8 @@ import {jsEsgrimaGroups} from './config';
 import {elementPresent, elementNotPresent, value, trigger, setValue, waitForElementPresent} from '../common/api';
 
 
+import {appEnv} from '../common/enviroment';
+
 
 var EsgrimaJSCommand =  EsgrimaCommandInstance;
 var EsgrimaJSAssertation =  EsgrimaAssertationInstance;
@@ -77,16 +79,54 @@ jsEsgrima("Look for the result", function() {
 }, {},'results');
 
 EsgrimaTestSuite.shift();
-console.log("Register the Test Suite!");
-console.log(EsgrimaInstance);
 
-console.log("Reading the rests");
-EsgrimaInstance.register(EsgrimaTestSuite);
-var testSuiteList = EsgrimaInstance.getTests();
-console.log("The test suite has: ");
-console.log(testSuiteList.lenght);
-console.log("The groups");
-console.log(EsgrimaInstance.getGroups());
+if (appEnv.env!=="node") {
+    var registerTests = function ()
+    {
+        document.addEventListener("DOMContentLoaded", function(event) {
+            console.log("Register the Test Suite!");
+            console.log(EsgrimaInstance);
+
+            console.log("Reading the rests");
+
+            EsgrimaInstance.register(EsgrimaTestSuite);
+            var testSuiteList = EsgrimaInstance.getTests();
+            console.log("The test suite has: ");
+            console.log(testSuiteList.lenght);
+            console.log("The groups");
+            console.log(EsgrimaInstance.getGroups());
+        });
+
+
+    }
+    console.log("Registering now!");
+   // window.onload = function () {
+        registerTests();
+    //}
+}
+else{
+    var registerTests = function ()
+    {
+        //document.addEventListener("DOMContentLoaded", function(event) {
+            console.log("Register the Test Suite!");
+            console.log(EsgrimaInstance);
+
+            console.log("Reading the rests");
+
+            EsgrimaInstance.register(EsgrimaTestSuite);
+            var testSuiteList = EsgrimaInstance.getTests();
+            console.log("The test suite has: ");
+            console.log(testSuiteList.lenght);
+            console.log("The groups");
+            console.log(EsgrimaInstance.getGroups());
+        //});
+
+
+    }
+    registerTests();
+    
+}
+
 
 
 
