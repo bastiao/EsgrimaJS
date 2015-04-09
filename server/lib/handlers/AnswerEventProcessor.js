@@ -29,8 +29,8 @@ class AnswerEventProcessor {
     start()
     {
 
-        var groups = this.testLoader.getGroups();
 
+        var groups = this.testLoader.getGroupsList();
         var controller = io
             .of('/')
             .on('connection', function (socket) {

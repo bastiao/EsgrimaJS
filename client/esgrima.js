@@ -18,9 +18,37 @@ class EsgrimaJSLoader
 
     registerGroups(groups)
     {
+        
+        console.log("registerGroups");
+        console.log(groups);
         this.groups = groups;
-    }
 
+    }
+    
+    
+    getMyGroup(){
+        var myGroup = "";
+        for (var _g in this.groups)
+        {
+            if (this.groups.hasOwnProperty(_g))
+            {
+                if (this.groups[_g]())
+                {
+                    myGroup = _g;
+
+                }
+            }
+
+        }
+        
+        console.log("My Group")
+        console.log(this.groups);
+        
+
+        this.group = myGroup;
+        console.log(this.group);
+        return this.group;
+    }
     getGroups(){
         return this.groups;
     }

@@ -60,8 +60,25 @@ class TestLoader
     registerGroups(groups)
     {
         this.groups = groups;
+        let groupList = [];
+        for (var key in groups) {
+            if (groups.hasOwnProperty(key)) {
+                groupList.push(key);
+            }
+        }
+        
+        this.groupList = groupList;
     }
 
+    getGroupsList(){
+        return this.groupList;
+    }
+    
+    getMethodByGroup(groupName)
+    {
+        return this.group[groupName];
+    }
+    
     getGroups(){
         return this.groups;
     }

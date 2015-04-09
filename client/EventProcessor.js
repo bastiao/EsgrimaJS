@@ -16,7 +16,8 @@ class EventProcessor {
     constructor(groupName) {
         this.socket = io(Configs.wsUrl);
         this.groupName = groupName;
-        
+        console.log("Group Name")
+        console.log(groupName);
     }
 
     start() {
@@ -31,9 +32,9 @@ class EventProcessor {
         });
 
         this.controller = io.connect(Configs.wsUrl+'chat');
-
+        var controller = this.controller;
         this.controller.on('connect', function (data) {
-            chat.emit('ready');
+            controller.emit('ready');
         });
 
         this.controller.on('disconnect', function (data) {
@@ -45,11 +46,11 @@ class EventProcessor {
         });
 
 
-        this.group = io.connect(Configs.wsUrl+groupName);
-
+        this.group = io.connect(Configs.wsUrl+this.groupName);
+        var group = this.group;
 
         this.group.on('connect', function (data) {
-            chat.emit('ready');
+            group.emit('ready');
         });
 
         this.group.on('execute', function (data) {
@@ -64,7 +65,7 @@ class EventProcessor {
 
         });
         
-        
+        /*
         
         news.on('item', function (data) {
             console.log("item");
@@ -106,6 +107,7 @@ class EventProcessor {
         news.on('reconnect', function (data) {
 
         });
+        */
 
     }
     

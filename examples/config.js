@@ -1,16 +1,19 @@
 
 
 import {EsgrimaInstance} from '../client/esgrima';
+var jQuery = require('jquery');
+
+
 
 var jsEsgrimaGroups = {
 
     'search': function () {
-        var search = document.getElementById("search");
+        var search = jQuery("#search");
         return search!==undefined;
 
     },
     'results' : function () {
-        var results = document.getElementById("results");
+        var results = jQuery("#results");
         return results!==undefined;
     }
 }

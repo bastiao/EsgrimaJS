@@ -6,7 +6,6 @@
 import {Configs} from './configs'
 import {DEBUG} from './configs'
 
-import {StartHandler} from './handlers/server/start';
 import {RegisterServerServices} from './handlers/server/ServerServices';
 import {AnswerEventProcessor} from './handlers/AnswerEventProcessor';
 

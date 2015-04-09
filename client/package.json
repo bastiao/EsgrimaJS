@@ -49,7 +49,7 @@
     "watchify": "^3.1"
   },
   "scripts": {
-    "start": "watchify -o ../server/webmanagement/EsgrimaClient.js -v -d . ../examples",
+    "start": "watchify -o ../server/webmanagement/EsgrimaClient.js -v -d . ../examples ../common",
     "build": "NODE_ENV=production ./node_modules/browserify/bin/cmd.js . -t 6to5ify --full-path=false | uglifyjs -cm > esgrimajsClient.min.js",
     "test": "jest"
   },
