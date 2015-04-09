@@ -13,9 +13,9 @@ var io = require('socket.io-client');
 
 class EventProcessor {
 
-    constructor(group) {
+    constructor(groupName) {
         this.socket = io(Configs.wsUrl);
-        this.group = group;
+        this.groupName = groupName;
         
     }
 
@@ -45,7 +45,7 @@ class EventProcessor {
         });
 
 
-        this.group = io.connect(Configs.wsUrl+group);
+        this.group = io.connect(Configs.wsUrl+groupName);
 
 
         this.group.on('connect', function (data) {

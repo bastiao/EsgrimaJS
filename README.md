@@ -60,6 +60,14 @@ their phiolosofy is a bit different.
 - Clock: how to syncrhonize the clock between several tests running?
 
 
+### Ubuntu workaround
+
+
+```
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+```
+
+
 # Inspiring & Authorship.
 
 Many of the philosofy is taken from Karma. So kudos for Karma and for
