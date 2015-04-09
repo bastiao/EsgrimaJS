@@ -78,7 +78,12 @@ var chat = io
             , '/chat': 'will get'
         });
 
-        
+        chat.emit('message', {
+            everyone: 'in'
+            , '/chat': 'will get',
+            "dados": 1}, {"dados": 1});
+
+
         socket.on('disconnect', function(){
             console.log('user disconnected');
             console.log(socket.conn.id);
@@ -91,16 +96,16 @@ var news = io
         console.log("emit bews");
 
 
+        
+        socket.emit('item', { news: 'item' });
+
         socket.on('item', function(){
-            console.log('item arrived from client');
-            console.log(socket.conn.id);
+            console.log('item inside');
         });
         
-        
-        news.emit('item', { news: 'item' });
-
         socket.on('disconnect', function(){
             console.log('user disconnected');
         });
         
     });
+

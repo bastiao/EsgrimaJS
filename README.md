@@ -6,13 +6,11 @@ Do you need to do Javascript testing in a distributed way? With
 multiple windows, multiple screen, remote places or whatever?
 And all the tests need to communicate? Use this framework!
 
-
 * Worked in distributed web applications - easy way to communicate between them. 
 * Supports UI Tests. 
 * You can execute the already exists Unit Tests for the modules.
 * Define a pipeline with the tests between different enviroments. 
 * Loop the pipeline and use the tests as a "stress-tests" also.
-
 
 
 ## Why we built another framework?

@@ -13,8 +13,10 @@ var io = require('socket.io-client');
 
 class EventProcessor {
 
-    constructor() {
+    constructor(group) {
         this.socket = io(Configs.wsUrl);
+        this.group = group;
+        
     }
 
     start() {
@@ -28,14 +30,46 @@ class EventProcessor {
             //socket.emit('start', { start: 'true' });
         });
 
-        var chat = io.connect(Configs.wsUrl+'chat');
-        var news = io.connect(Configs.wsUrl+'news');
+        this.controller = io.connect(Configs.wsUrl+'chat');
+
+        this.controller.on('connect', function (data) {
+            chat.emit('ready');
+        });
+
+        this.controller.on('disconnect', function (data) {
+
+        });
+
+        this.controller.on('reconnect', function (data) {
+
+        });
 
 
+        this.group = io.connect(Configs.wsUrl+group);
+
+
+        this.group.on('connect', function (data) {
+            chat.emit('ready');
+        });
+
+        this.group.on('execute', function (data) {
+            // Start Executing the tests.
+        });
+        
+        this.group.on('disconnect', function (data) {
+
+        });
+
+        this.group.on('reconnect', function (data) {
+
+        });
+        
+        
+        
         news.on('item', function (data) {
             console.log("item");
             console.log(data);
-            news.emit('items');
+            news.emit('item');
         });
 
 
@@ -60,9 +94,23 @@ class EventProcessor {
             console.log("hi from news");
             console.log(data);
             chat.emit('hi from news!');
+            console.log("item");
+            console.log(data);
+            news.emit('item', {data: "lol"});
         });
 
-        
+        news.on('disconnect', function (data) {
+
+        });
+
+        news.on('reconnect', function (data) {
+
+        });
+
+            
+
+
+
     }
 
     getSocket()

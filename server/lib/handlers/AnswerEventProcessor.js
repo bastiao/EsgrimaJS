@@ -36,19 +36,23 @@ class AnswerEventProcessor {
         var controller = io
             .of('/')
             .on('connection', function (socket) {
-                groupsSockets[socket.conn.id] = {};
-                socket.emit('message', {
+                groupsSockets[socket.conn.id] = socket;
+                socket.emit('ready', {
                     that: 'only'
-                    , '/chat': 'will get'
-                });
-                console.log("emit chat");
-                chat.emit('message2', {
-                    everyone: 'in'
-                    , '/chat': 'will get'
+                    , '/chat': 'this  client is ready to execute tests'
                 });
 
+
+                socket.on('started', function(){
+                
+                });
+
+                socket.on('stopped', function(){
+
+                });
+                
                 socket.on('disconnect', function(){
-                    console.log('user disconnected');
+                    delete groupsSockets[socket.conn.id];
                 });
             });
 
@@ -59,19 +63,22 @@ class AnswerEventProcessor {
             let groupSocket = io
                 .of('/'+group)
                 .on('connection', function (socket) {
-                    socket.emit('message', {
-                        that: 'only'
-                        , '/chat': 'will get'
-                    });
-                    console.log("emit chat");
-                    chat.emit('message2', {
-                        everyone: 'in'
-                        , '/chat': 'will get'
+
+                    socket.on('executed', function(data){
+                        // Test Complete
+                        let id = data.test.id;
+                        let reports = data.test.reports;
+                        let assertations = data.test.assertations;
+                        
                     });
 
+
                     socket.on('disconnect', function(){
-                        console.log('user disconnected');
+                        delete groupsSockets[socket.conn.id];
                     });
+                    
+                    
+                    
                 });
 
             groupsSockets[group] = groupSocket;
