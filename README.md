@@ -58,6 +58,9 @@ their phiolosofy is a bit different.
 ## Known issues
 
 - Clock: how to syncrhonize the clock between several tests running?
+- How to access the external components in Javascript AMD? They do not have access to 
+all components, so it is really hard to get access to them. It is possible to instance
+new components.
 
 
 ### Ubuntu workaround

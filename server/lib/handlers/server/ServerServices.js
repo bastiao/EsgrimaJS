@@ -2,16 +2,19 @@
  * Created by Luís A. Bastião Silva <bastiao@ua.pt> on 06/04/15.
  */
 
+var colors = require('colors');
+var colors = require('colors/safe');
+
 
 var ServerStartHandler= function(app, io)
 {
 
     app.get("/api/start", function(req, res){
         // Send the message for all the clients
-        
-        console.log("Starting start");
 
-        
+        console.info(colors.black.bgYellow("Starting REST service"));
+
+
         io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
         io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
 

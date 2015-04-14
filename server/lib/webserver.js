@@ -61,7 +61,7 @@ var AnswerEventProcessorInstance = new AnswerEventProcessor(io, EsgrimaInstance)
 
 RegisterServerServices(app, io);
 
-
+/*
 var chat = io
     .of('/chat')
     .on('connection', function (socket) {
@@ -108,3 +108,4 @@ var news = io
         
     });
 
+*/
