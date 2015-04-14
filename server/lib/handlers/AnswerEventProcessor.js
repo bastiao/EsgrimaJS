@@ -2,7 +2,6 @@
  * Created by Luís A. Bastião Silva <bastiao@ua.pt> on 07/04/15.
  */
     
-    
 
 import {ServiceTest} from './tests/testHandler';
 
@@ -29,9 +28,15 @@ class AnswerEventProcessor {
 
     }
 
+    areAllTheClientsReady()
+    {
+        
+        
+    }
+    
+    
     start()
     {
-
 
         var groups = this.testLoader.getGroupsList();
         console.log(this.testLoader);

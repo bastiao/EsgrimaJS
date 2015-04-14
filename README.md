@@ -76,10 +76,13 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 Follow the same recomendations: https://github.com/TooTallNate/node-gyp#installation
 
 
-# Inspiring & Authorship.
+# Authorship & Inspiring 
+
+- Luís A. Bastião Silva <bastiao@ua.pt>
+
 
 Many of the philosofy is taken from Karma. So kudos for Karma and for
 Vojtech Jína, that are the author of the master thesis.
 
-So, if somethins is not good with licenses or code or whatever, feel free
+So, if something is not good with licenses or code or whatever, feel free
 to let me know, and will fix it of course.

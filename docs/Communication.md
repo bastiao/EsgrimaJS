@@ -14,8 +14,6 @@
 ![Architecture](docs/StateMachine_Client.jpg)
 
 
-
-
 ## Server Setup
 
 
