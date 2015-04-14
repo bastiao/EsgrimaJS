@@ -1,5 +1,20 @@
 # Protocol of communication
 
+## State Machines - Distributed Test Runned
+
+### Server
+
+
+![Architecture](docs/StateMachine_Server.jpg)
+
+
+### Client
+
+
+![Architecture](docs/StateMachine_Client.jpg)
+
+
+
 
 ## Server Setup
 
@@ -57,13 +72,3 @@ Note: it is follows the architecture from "JavaScript Test Runner, from Vojtech 
 Note: this also is based on API from nightwatcher.js (inspired from).
 
 
-## Server
-
-
-![Architecture](docs/StateMachine_Server.jpg)
-
-
-## Client
-
-
-![Architecture](docs/StateMachine_Client.jpg)

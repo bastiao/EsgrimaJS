@@ -50,7 +50,7 @@ var fsm = StateMachine({
             return options;
         },
         onready: function (options) {
-            console.info(colors.black.bgYellow("State: "+options.name));
+
         },
         onmissClients: function (options) {
 

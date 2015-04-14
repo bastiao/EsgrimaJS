@@ -9,14 +9,17 @@ import {ServiceTest} from './tests/testHandler';
 import {TestLoader} from '../../../common/TestLoader';
 var colors = require('colors/safe');
 
+import {fsm} from './ServerStateMachine';
+
 
 class AnswerEventProcessor {
 
     constructor(io, EsgrimaInstance) {
-        this.io = this.io;
+        this.io = io;
         this.EsgrimaInstance = EsgrimaInstance;
         this.testLoader = new TestLoader(EsgrimaInstance.getTests());
-
+        this.testLoader.register(EsgrimaInstance.getTests(), this.EsgrimaInstance.getGroups())
+        this.testLoader.registerGroups( this.EsgrimaInstance.getGroups());
         /**
          *  
          * Contains the group sockets.
@@ -31,7 +34,12 @@ class AnswerEventProcessor {
 
 
         var groups = this.testLoader.getGroupsList();
-        var controller = io
+        console.log(this.testLoader);
+        console.log(this.EsgrimaInstance.getTests());
+        console.log(groups);
+        
+        console.info(colors.yellow.bgBlack("Web socket starting the controller"));
+        var controller = this.io
             .of('/')
             .on('connection', function (socket) {
                 groupsSockets[socket.conn.id] = socket;
@@ -41,11 +49,20 @@ class AnswerEventProcessor {
                 });
 
 
-                socket.on('started', function(){
-                
+                socket.on('start', function(){
+
                 });
 
-                socket.on('stopped', function(){
+                socket.on('ready', function(){
+                
+                });
+                
+
+                socket.on('executeTn', function(){
+
+                });
+
+                socket.on('stop', function(){
 
                 });
                 
@@ -54,11 +71,15 @@ class AnswerEventProcessor {
                 });
             });
 
-        
 
         for(var i = 0, size = groups.length; i < size ; i++){
+
+
             var group = groups[i];
-            let groupSocket = io
+            //console.info(colors.yellow.bgBlack("Do I really belong to the group?  " + group));
+            //console.info(colors.yellow.bgBlack("Answer: " + this.EsgrimaInstance.getGroups()[group]()));
+            console.info(colors.yellow.bgBlack("Web socket starting with " + group));
+            let groupSocket = this.io
                 .of('/'+group)
                 .on('connection', function (socket) {
 
@@ -81,7 +102,7 @@ class AnswerEventProcessor {
                     
                 });
 
-            groupsSockets[group] = groupSocket;
+            this.groupsSockets[group] = groupSocket;
             
         }
 

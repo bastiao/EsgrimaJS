@@ -57,10 +57,11 @@ app.use("/web", express.static(__dirname + '/../webmanagement/'));
 
 
 var AnswerEventProcessorInstance = new AnswerEventProcessor(io, EsgrimaInstance);
-
+AnswerEventProcessorInstance.start();
 
 import {fsm} from './handlers/ServerStateMachine';
 
+/*
 fsm.start().then(function () {
     console.log("fsm.current");
     console.log(fsm.current);
@@ -69,6 +70,10 @@ fsm.start().then(function () {
     });
 
 });
+
+*/
+
+
 import {RegisterServerServices} from './handlers/server/ServerServices';
 setTimeout(function(){
 
