@@ -6,7 +6,7 @@
 import {Configs} from './configs'
 import {DEBUG} from './configs'
 
-import {RegisterServerServices} from './handlers/server/ServerServices';
+
 import {AnswerEventProcessor} from './handlers/AnswerEventProcessor';
 
 
@@ -59,7 +59,24 @@ app.use("/web", express.static(__dirname + '/../webmanagement/'));
 var AnswerEventProcessorInstance = new AnswerEventProcessor(io, EsgrimaInstance);
 
 
-RegisterServerServices(app, io);
+import {fsm} from './handlers/ServerStateMachine';
+
+fsm.start().then(function () {
+    console.log("fsm.current");
+    console.log(fsm.current);
+    fsm.startPipeline().catch(function (err) {
+        console.log(err);
+    });
+
+});
+import {RegisterServerServices} from './handlers/server/ServerServices';
+setTimeout(function(){
+
+    RegisterServerServices(app, io);
+    
+}, 300);
+
+
 
 /*
 var chat = io

@@ -5,7 +5,7 @@
 var colors = require('colors');
 var colors = require('colors/safe');
 
-
+import {fsm} from '../ServerStateMachine';
 var ServerStartHandler= function(app, io)
 {
 
@@ -13,7 +13,10 @@ var ServerStartHandler= function(app, io)
         // Send the message for all the clients
 
         console.info(colors.black.bgYellow("Starting REST service"));
-
+        
+        
+        fsm.start();
+        
 
         io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
         io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
@@ -21,6 +24,9 @@ var ServerStartHandler= function(app, io)
         // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');
         res.send({command:"start", group:'all'});
+
+        fsm.startPipeline();
+        
         
     });
     
@@ -67,12 +73,15 @@ var ServerGroupsHandler= function(app, io)
 
 var RegisterServerServices = function(app, io)
 {
+    
     ServerStartHandler(app,io);
     ServerStartHandler(app,io);
     ServerStopHandler(app,io);
     ServerClientsHandler(app,io);
     ServerGroupsHandler(app,io);
 }
+
+
 
 
 export {RegisterServerServices}
