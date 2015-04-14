@@ -8,9 +8,9 @@ import {EsgrimaTestSuite} from '../examples/tests';
 
 import {EventProcessor} from './EventProcessor';
 import {EsgrimaInstance} from './esgrima';
+import {fsm, setEventProcessor} from './handlers/ClientStateMachine';
 
 import {appEnv} from '../common/enviroment';
-
 
 var EventProcessorInstance = {};
 if (appEnv.env !== 'node') {
@@ -26,9 +26,10 @@ if (appEnv.env !== 'node') {
             console.log("Loading with EsgrimaJSLoader");
             console.log(testSuiteList);
 
+            
 
-
-            EventProcessorInstance = new EventProcessor(EsgrimaInstance.getMyGroup());
+            EventProcessorInstance = new EventProcessor(EsgrimaInstance);
+            setEventProcessor(EventProcessorInstance);
             // Now it is waiting for events! :D gotta go!
             EventProcessorInstance.start();
 

@@ -5,35 +5,30 @@
 
 import {Configs} from './configs';
 
-
-import {ClientServiceStart} from './handlers/start';
-import {ClientServiceConnect} from './handlers/connect';
 console.log("Require Socket IO");
 var io = require('socket.io-client');
 
+import {fsm} from './handlers/ClientStateMachine';
+
 class EventProcessor {
 
-    constructor(groupName) {
-        this.socket = io(Configs.wsUrl);
-        this.groupName = groupName;
+    constructor(EsgrimaInstance) {
+        this.EsgrimaInstance = EsgrimaInstance;
+        this.testSuiteList = EsgrimaInstance.getTests();
+        this.groupName = EsgrimaInstance.getMyGroup();
         console.log("Group Name")
         console.log(groupName);
     }
 
     start() {
         // on /start
-        //ClientServiceStart(this.socket);
         console.log("EventProcessor: start connecting");
-        this.socket.on('connection', function (data) {
 
-            console.log("The client is now starting with");
-            console.log(data);
-            //socket.emit('start', { start: 'true' });
-        });
-
-        this.controller = io.connect(Configs.wsUrl+'chat');
+        this.controller = io.connect(Configs.wsUrl);
         var controller = this.controller;
         this.controller.on('connect', function (data) {
+            console.log("The client is now starting with2");
+            fsm.startTests();
             controller.emit('ready');
         });
 
@@ -65,57 +60,30 @@ class EventProcessor {
 
         });
         
-        /*
-        
-        news.on('item', function (data) {
-            console.log("item");
-            console.log(data);
-            news.emit('item');
-        });
 
-
-        chat.on('connect', function (data) {
-            console.log("hi from chat!");
-            console.log(data);
-            chat.emit('hi from chat!');
-        });
-        chat.on('message', function (data) {
-            console.log("message chat!");
-            console.log(data);
-
-        });
-        chat.on('message', function (data) {
-            console.log("message chat!");
-            console.log(data);
-
-        });
-
-
-        news.on('connect', function (data) {
-            console.log("hi from news");
-            console.log(data);
-            chat.emit('hi from news!');
-            console.log("item");
-            console.log(data);
-            news.emit('item', {data: "lol"});
-        });
-
-        news.on('disconnect', function (data) {
-
-        });
-
-        news.on('reconnect', function (data) {
-
-        });
-        */
 
     }
     
     
+    ready()
+    {
+        fsm.ready();
+        this.controller.emit('ready');
+
+    }
+    
+    
+    report(id, report)
+    {
+        //Send the reports back.
+        
+    }
+    
     executeTest(id)
     {
         // The code to execute the test
-        
+        this.testSuiteList[id]();
+
     }
     executedTest(id, reports,assertations)
     {

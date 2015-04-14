@@ -11,18 +11,12 @@ class EsgrimaJSLoader
     }
     register(testSuite)
     {
-        //console.log("The test suite that was loaded are now ready to use.");
-        //console.log(testSuite);
         this.testSuite = testSuite;
     }
 
     registerGroups(groups)
     {
-        
-        console.log("registerGroups");
-        console.log(groups);
         this.groups = groups;
-
     }
     
     
@@ -41,12 +35,8 @@ class EsgrimaJSLoader
 
         }
         
-        console.log("My Group")
-        console.log(this.groups);
-        
 
         this.group = myGroup;
-        console.log(this.group);
         return this.group;
     }
     getGroups(){

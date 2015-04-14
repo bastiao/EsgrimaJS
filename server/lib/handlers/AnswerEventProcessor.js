@@ -42,11 +42,13 @@ class AnswerEventProcessor {
         console.log(this.testLoader);
         console.log(this.EsgrimaInstance.getTests());
         console.log(groups);
-        
+        console.log(this.groupsSockets);
+        var groupsSockets = this.groupsSockets;
         console.info(colors.yellow.bgBlack("Web socket starting the controller"));
         var controller = this.io
             .of('/')
             .on('connection', function (socket) {
+                console.log(groupsSockets);
                 groupsSockets[socket.conn.id] = socket;
                 socket.emit('ready', {
                     that: 'only'
@@ -111,7 +113,7 @@ class AnswerEventProcessor {
                     
                 });
 
-            this.groupsSockets[group] = groupSocket;
+            groupsSockets[group] = groupSocket;
             
         }
 
