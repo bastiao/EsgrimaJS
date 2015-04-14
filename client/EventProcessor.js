@@ -16,8 +16,7 @@ class EventProcessor {
         this.EsgrimaInstance = EsgrimaInstance;
         this.testSuiteList = EsgrimaInstance.getTests();
         this.groupName = EsgrimaInstance.getMyGroup();
-        console.log("Group Name")
-        console.log(groupName);
+
     }
 
     start() {
@@ -30,6 +29,12 @@ class EventProcessor {
             console.log("The client is now starting with2");
             fsm.startTests();
             controller.emit('ready');
+        });
+        
+        this.controller.on('stopTests', function (data) {
+
+            fsm.stopTests();
+
         });
 
         this.controller.on('disconnect', function (data) {
@@ -48,19 +53,20 @@ class EventProcessor {
             group.emit('ready');
         });
 
-        this.group.on('execute', function (data) {
+        this.group.on('executeTn', function (data) {
             // Start Executing the tests.
+            // Id of tests is: data.id
+            fsm.executeTn(data);
         });
         
         this.group.on('disconnect', function (data) {
-
+            // TODO: handle that in future
         });
 
         this.group.on('reconnect', function (data) {
-
+            // TODO: handle that in future
+            
         });
-        
-
 
     }
     
@@ -71,11 +77,17 @@ class EventProcessor {
         this.controller.emit('ready');
 
     }
+    stopTests()
+    {
+        this.controller.emit('stoppedTests');
+        
+    }
     
     
     report(id, report)
     {
         //Send the reports back.
+        this.controller.emit('reportTn', report);
         
     }
     
@@ -83,11 +95,16 @@ class EventProcessor {
     {
         // The code to execute the test
         this.testSuiteList[id]();
+        fsm.reportTn(id);
+        
 
     }
+    
+
     executedTest(id, reports,assertations)
     {
         // The code to executed the test
+        // TODO: more complex to implement (future)
 
     }
 

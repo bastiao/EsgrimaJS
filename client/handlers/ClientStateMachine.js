@@ -15,6 +15,10 @@ var StateClientEnum = {
 
 var EventProcessorInstance = null;
 
+// Full faith on javascript, and try to find this circular injection.
+// That's why I really like DI. Magic happens! 
+
+
 var setEventProcessor = function(instance)
 {
     EventProcessorInstance = instance;
@@ -56,17 +60,19 @@ var fsm = StateMachine({
             
             // Get the tests from the test loader and run it.
             console.log("Now it is the time to Execute a test TN!");
-            EventProcessorInstance.executeTest()
+            EventProcessorInstance.executeTest(args.id);
             return options;
         },
         onreportTn: function (options) {
             
             // Send back the report by web sockets.
+            // It is needed to take into account the report. 
+            EventProcessorInstance.report(args.id, {});
 
             return options;
         },
         onstopTests: function (options) {
-
+            EventProcessorInstance.stopTests();
             return options;
         }
        
