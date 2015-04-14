@@ -72,24 +72,5 @@ var fsm = StateMachine({
     }
 });
 
-class ServerStateMachine {
-    
-    
-    constructor(io, app)
-    {
-        this.io = io;
-        this.app = app;
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
 
 export {fsm}

@@ -55,7 +55,6 @@ class AnswerEventProcessor {
 
 
                 socket.on('start', function(){
-                    
 
                 });
 
@@ -66,9 +65,9 @@ class AnswerEventProcessor {
                 });
                 
 
-                socket.on('executeTn', function(){
+                socket.on('reportTn', function(){
 
-                    fsm.executeTn();
+                    fsm.reportTn();
 
                 });
 
