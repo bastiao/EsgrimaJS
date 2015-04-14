@@ -13,10 +13,7 @@ var ServerStartHandler= function(app, io)
         // Send the message for all the clients
 
         console.info(colors.black.bgYellow("Starting REST service"));
-        
-        
         fsm.start();
-        
 
         io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
         io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });

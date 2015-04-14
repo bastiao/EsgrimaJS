@@ -70,6 +70,11 @@ new components.
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 
+### Windows 8 isues
+
+
+Follow the same recomendations: https://github.com/TooTallNate/node-gyp#installation
+
 
 # Inspiring & Authorship.
 
