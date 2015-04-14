@@ -1,6 +1,6 @@
 # Protocol of communication
 
-## State Machines - Distributed Test Runned
+## State Machines - Distributed Test Runner
 
 ### Server
 
