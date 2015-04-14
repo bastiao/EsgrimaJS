@@ -30,8 +30,8 @@ class AnswerEventProcessor {
 
     areAllTheClientsReady()
     {
-        
-        
+        // TODO: implement
+        return false;
     }
     
     
@@ -55,15 +55,20 @@ class AnswerEventProcessor {
 
 
                 socket.on('start', function(){
+                    
 
                 });
 
                 socket.on('ready', function(){
-                
+
+                    fsm.ready();
+                    
                 });
                 
 
                 socket.on('executeTn', function(){
+
+                    fsm.executeTn();
 
                 });
 
