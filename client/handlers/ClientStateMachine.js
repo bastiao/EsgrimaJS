@@ -72,7 +72,8 @@ var fsm = StateMachine({
             
             // Get the tests from the test loader and run it.
             console.log("Now it is the time to Execute a test TN!");
-            EventProcessorInstance.executeTest(args.id);
+            console.log(options.args);
+            EventProcessorInstance.executeTest(options.args[0].description);
             return options;
         },
         onreportTn: function (options) {

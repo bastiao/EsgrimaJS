@@ -43,6 +43,8 @@ jsEsgrima("Search for Something", function() {
   });
 }, {}, 'search');
 
+
+
 jsEsgrima("t1", trigger, {id:'#search', event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
@@ -78,7 +80,11 @@ jsEsgrima("Look for the result", function() {
   });
 }, {},'results');
 
-EsgrimaTestSuite.shift();
+
+
+console.log(EsgrimaTestSuite);
+//EsgrimaTestSuite.shift();
+console.log(EsgrimaTestSuite);
 
 if (appEnv.env!=="node") {
     var registerTests = function ()

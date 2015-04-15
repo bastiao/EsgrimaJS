@@ -56,7 +56,9 @@ app.use("/web", express.static(__dirname + '/../webmanagement/'));
 // List the groups!
 
 
-import {fsm, setEventProcessor} from './handlers/ServerStateMachine';
+import {fsm, setEventProcessor, resetServerStateMachine} from './handlers/ServerStateMachine';
+
+resetServerStateMachine();
 
 var AnswerEventProcessorInstance = new AnswerEventProcessor(io, EsgrimaInstance);
 setEventProcessor(AnswerEventProcessorInstance)

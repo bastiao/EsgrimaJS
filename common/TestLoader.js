@@ -18,12 +18,13 @@ class TestLoader
         }
         this.testSuite = testSuite;
         this.groups = groups;
+        this.start();
     }
     
     start()
     {
         this.currentIndex = 0 ;
-        this.currentTest = testSuite[this.currentIndex];
+        this.currentTest = this.testSuite[this.currentIndex];
     }
     
     runTest()
@@ -49,6 +50,10 @@ class TestLoader
     
     hasNext()
     {
+        
+        console.log("Current index: " + this.currentIndex);
+        console.log("Test suite size: " + this.testSuite.length);
+        
         return (this.currentIndex+1)<this.testSuite.length;
     }
     

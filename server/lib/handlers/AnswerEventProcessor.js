@@ -8,7 +8,7 @@ import {ServiceTest} from './tests/testHandler';
 import {TestLoader} from '../../../common/TestLoader';
 var colors = require('colors/safe');
 
-import {fsm} from './ServerStateMachine';
+import {fsm, setEventProcessor, resetServerStateMachine}  from './ServerStateMachine';
 
 
 class AnswerEventProcessor {
@@ -19,12 +19,25 @@ class AnswerEventProcessor {
         this.testLoader = new TestLoader(EsgrimaInstance.getTests());
         this.testLoader.register(EsgrimaInstance.getTests(), this.EsgrimaInstance.getGroups())
         this.testLoader.registerGroups( this.EsgrimaInstance.getGroups());
+        
+
         /**
          *  
          * Contains the group sockets.
          * For instance, for a particular group  
          */
         this.groupsSockets = {};
+        var groupsNative = this.EsgrimaInstance.getGroups();
+        for (var _g in groupsNative)
+        {
+            if (groupsNative.hasOwnProperty(_g))
+            {
+                this.groupsSockets[_g] = [];
+            }
+            
+        }
+        
+        
         this.clientSockets = {};
         this.readyWaiting = [];
         
@@ -74,6 +87,9 @@ class AnswerEventProcessor {
     }
     clientsConnectedOrNot() {
         console.info(colors.black.bgYellow("clientsConnectedOrNot"));
+
+        //console.log("Get Tests: ");
+        //console.log(this.testLoader.getTests());
         if (this.areAllTheClientsReady())
         {
             console.info(colors.black.bgYellow("areAllTheClientsReady"));
@@ -94,24 +110,52 @@ class AnswerEventProcessor {
     runNextTest()
     {
         var value = this.testLoader.hasNext();
+        console.log("Has next tests?");
+        console.log(value);
         if (this.testLoader.hasNext())
             this.testLoader.next();
         return value;
 
     }
+    
+    emitMessageForAGroup(message, args,  group)
+    {
+        console.log("Number of sockets connected: " +this.groupsSockets[group].length)
+        for (var i = 0; i<this.groupsSockets[group].length; i++)
+        {
 
+            this.groupsSockets[group][i].emit(message, args);
+        }
+        
+    }
+    
     executeTest()
     {
 
-        var idTest = this.testLoader.getCurrentTest().id;
-        for (var _s in this.groupSockets)
+        console.log("Current test: ");
+        console.log(this.testLoader.getCurrentTest());
+        
+        var idTest = this.testLoader.getCurrentTest().description;
+        console.log(idTest);
+        console.log(this.groupsSockets);
+        
+        for (var _s in this.groupsSockets)
         {
-            if (this.groupSockets.hasOwnProperty(_s))
+            console.log("Loging " + _s);
+            console.log("Checking to "+this.testLoader.getCurrentTest().args.group);
+            if (this.groupsSockets.hasOwnProperty(_s))
             {
                 
-                this.groupSockets[_s].emif("executeTn", this.testLoader.getCurrentTest() );
+                console.log("Checking to "+this.testLoader.getCurrentTest().args.group);
+                console.log("Checking to _S "+_s);
+                if (this.testLoader.getCurrentTest().args.group===_s)
+                {
+                    console.log("Emiting Execute Tn of " + idTest + " to " + _s);
+                    this.emitMessageForAGroup("executeTn", this.testLoader.getCurrentTest() , _s);
+                    
+                }
+                
             }
-            
         }
 
         fsm.executeTn( this.testLoader.getCurrentTest());
@@ -151,12 +195,13 @@ class AnswerEventProcessor {
 
         var groupsSockets = this.groupsSockets;
         var clientSockets =  this.clientSockets;
+        var self = this;
         console.info(colors.yellow.bgBlack("Web socket starting the controller"));
         var controller = this.io
             .of('/')
             .on('connection', function (socket) {
 
-                clientSockets[socket.conn.id] = socket;
+                self.clientSockets[socket.conn.id] = socket;
                 console.info(colors.yellow.bgBlack("On Connect this sends a ready to another controller."));
 
                 socket.emit('ready', {
@@ -199,23 +244,32 @@ class AnswerEventProcessor {
                 });
                 
                 socket.on('disconnect', function(){
-                    delete clientSockets[socket.conn.id];
+                    console.log("Disconnecting.");
+                    delete self.clientSockets[socket.conn.id];
+                    resetServerStateMachine();
                 });
             });
 
         this.controller = controller;
-        for(var i = 0, size = groups.length; i < size ; i++){
+        
+        console.log(groups);
+
+        for(var i = 0; i < groups.length ; i++){
 
 
             var group = groups[i];
+
             //console.info(colors.yellow.bgBlack("Do I really belong to the group?  " + group));
             //console.info(colors.yellow.bgBlack("Answer: " + this.EsgrimaInstance.getGroups()[group]()));
             console.info(colors.yellow.bgBlack("Web socket starting with " + group));
-            let groupSocket = this.io
+            var groupSocket = this.io
                 .of('/'+group)
-                .on('connection', function (socket) {
+                .on('connection', (function (g, socket) {
 
-                    groupsSockets[group] = socket;
+                    //console.log(self.groupsSockets[group]);
+
+                    //console.log(self.groupsSockets[group]);
+                    
 
                     socket.on('reportTn', function(data){
                         // Test Complete
@@ -229,14 +283,24 @@ class AnswerEventProcessor {
 
 
                     socket.on('disconnect', function(){
-                        delete groupsSockets[socket.conn.id];
-                    });
+                        console.log("Disconnecting." + g);
+                        console.log(socket);
+                        /*for (var j = 0 ; j<self.groupsSockets[group].length; j++)
+                        {
+                            if (self.groupsSockets[group][j].conn.id=== socket.conn.id)
+                            {
+                                delete self.groupsSockets[group][j];
+                                
+                            }
+                            
+                        }*/
+                    })
                     
                     
                     
-                });
-
-            
+                }).bind(this, group));
+            console.info(colors.yellow.bgBlack("Added Socket " + group));
+            self.groupsSockets[group].push(groupSocket);
             
         }
 

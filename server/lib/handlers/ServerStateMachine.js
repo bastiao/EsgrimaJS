@@ -38,7 +38,6 @@ var setEventProcessor = function(instance)
 {
     AnswerEventProcessorInstance = instance;
 };
-
 var fsm = StateMachine({
     initial: 'LISTEN',
     events: [
@@ -49,8 +48,12 @@ var fsm = StateMachine({
         { name: 'allClientsReady', from: ['ARECLIENTSREADY'], to: 'RUNNEXTTEST' },
         { name: 'executeTn', from: ['RUNNEXTTEST'], to: 'WAITFORREPORTTN' },
         { name: 'reportTn', from: ['WAITFORREPORTTN'], to: 'RUNNEXTTEST' },
-        { name: 'noMoreTests', from: ['RUNNEXT_TEST'], to: 'LISTEN' }
+        { name: 'noMoreTests', from: ['RUNNEXT_TEST'], to: 'LISTEN' },
         
+        { name: 'resetStates', from: ['PREPARETESTS', 'WAITFORCLIENTSREADY', 'ARECLIENTSREADY',
+            'RUNNEXTTEST', 'WAITFORREPORTTN' ], to: 'LISTEN' }
+        
+
     ],
     callbacks: {
         onenteredPREPARETESTS: function (options) {
@@ -69,7 +72,7 @@ var fsm = StateMachine({
             AnswerEventProcessorInstance.readyState(options.args.id);
             return options;
         },
-        
+
         onenteredARECLIENTSREADY: function (options) {
             AnswerEventProcessorInstance.clientsConnectedOrNot();
             return options
@@ -80,11 +83,11 @@ var fsm = StateMachine({
             return options;
         },
         onallClientsReady: function (options) {
-            
+
             console.info(colors.black.bgYellow("State: "+options.name));
 
             return options;
-            
+
         },
 
         onenteredRUNNEXTTEST: function (options) {
@@ -101,18 +104,18 @@ var fsm = StateMachine({
 
                 console.info(colors.black.bgRed("No more tests available."));
                 AnswerEventProcessorInstance.noMoreTests();
-                
+
             }
-            
+
         },
-        
+
         onexecuteTn: function (options) {
             console.info(colors.black.bgYellow("State: "+options.name));
             return options;
         },
         onreportTn: function (options) {
             console.info(colors.black.bgYellow("State: "+options.name));
-            
+
             return options;
         },
         onnoMoreTests: function (options) {
@@ -123,5 +126,10 @@ var fsm = StateMachine({
     }
 });
 
+var resetServerStateMachine = function(){
+    fsm.resetStates();
+}
 
-export {fsm, setEventProcessor}
+
+
+export {fsm, setEventProcessor, resetServerStateMachine}

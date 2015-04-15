@@ -12,8 +12,23 @@ class EsgrimaJSLoader
     register(testSuite)
     {
         this.testSuite = testSuite;
+        this.testHash = {}
+        console.log(testSuite);
+        for (var _t in this.testSuite)
+        {
+            console.log(_t);
+            console.log( this.testSuite[_t].description);
+            this.testHash[this.testSuite[_t].description] = this.testSuite[_t];
+        }
     }
-
+    
+    
+    getTestByName(id)
+    {
+        console.log(this.testHash);
+        return this.testHash[id];
+        
+    }
     registerGroups(groups)
     {
         this.groups = groups;
@@ -21,6 +36,8 @@ class EsgrimaJSLoader
     
     
     getMyGroup(){
+        
+        console.log("getMyGroup");
         var myGroup = "";
         for (var _g in this.groups)
         {
@@ -34,9 +51,12 @@ class EsgrimaJSLoader
             }
 
         }
+
+        
         
 
         this.group = myGroup;
+        console.log(this.group);
         return this.group;
     }
     getGroups(){

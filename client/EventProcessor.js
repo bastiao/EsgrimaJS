@@ -16,6 +16,7 @@ class EventProcessor {
         this.EsgrimaInstance = EsgrimaInstance;
         this.testSuiteList = EsgrimaInstance.getTests();
         this.groupName = EsgrimaInstance.getMyGroup();
+        
 
     }
 
@@ -26,7 +27,7 @@ class EventProcessor {
         this.controller = io.connect(Configs.wsUrl);
         var controller = this.controller;
         this.controller.on('connect', function (data) {
-            console.log("The client is now starting with2");
+            console.log("The client is now starting with");
 
         });
 
@@ -54,25 +55,36 @@ class EventProcessor {
         });
 
 
+        console.log("This is my group:");
+        console.log(this.groupName);
+        
+
         this.group = io.connect(Configs.wsUrl+this.groupName);
         var group = this.group;
-
+        var self = this;
         this.group.on('connect', function (data) {
             //group.emit('ready');
+            console.log("New connection in " + self.groupName);
         });
 
         this.group.on('executeTn', function (data) {
             // Start Executing the tests.
             // Id of tests is: data.id
+            
+            console.log("Execute a test, TN");
+            console.log(data);
+            
             fsm.executeTn(data);
         });
         
         this.group.on('disconnect', function (data) {
             // TODO: handle that in future
+            console.log("Disconnecting-.-");
         });
 
         this.group.on('reconnect', function (data) {
             // TODO: handle that in future
+            console.log("Reconnect-.-");
             
         });
 
@@ -106,8 +118,10 @@ class EventProcessor {
     
     executeTest(id)
     {
+        
+        console.log("Executing test number: " + id);
         // The code to execute the test
-        this.testSuiteList[id]();
+        this.EsgrimaInstance.getTestByName(id).callbackOfTests();
         fsm.reportTn(id);
         
     }
