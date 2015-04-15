@@ -54,7 +54,7 @@ class TestLoader
     
     getCurrentTest()
     {
-        
+        return this.testSuite[this.currentIndex];
     }
 
     registerGroups(groups)

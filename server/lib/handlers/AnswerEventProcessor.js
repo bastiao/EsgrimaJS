@@ -25,34 +25,80 @@ class AnswerEventProcessor {
          * For instance, for a particular group  
          */
         this.groupsSockets = {};
-
+        this.readyWaiting = [];
+        
     }
 
     areAllTheClientsReady()
     {
-        // TODO: implement
-        return false;
+        console.log(this.groupsSockets.length);
+        return this.groupsSockets.length != this.readyWaiting.length;
     }
+
+    prepareAndLoad()
+    {
+        console.info(colors.black.bgYellow("prepareAndLoad"));
+        console.log(this.controller);
+
+        this.controller.emit('startTests', {});
+        fsm.startPipeline();
+    }
+    readyState(id)
+    {
+        this.readyWaiting.push(id);
+        if (areAllTheClientsReady)
+        {
+            
+            fsm.allClientsReady();
+            
+        }
+        else{
+            fsm.missClients();
+        }
+        
+    }
+    cleanReady() {
+        this.readyWaiting = [];
+    }
+
     
+    runNextTest()
+    {
+
+        if (this.testLoader.hasNext())
+            this.testLoader.next();
+    }
+
+    executeTest()
+    {
+
+        var idTest = this.testLoader.getCurrentTest().id;
+        for (var _s in this.groupSockets)
+        {
+            if (this.groupSockets.hasOwnProperty(_s))
+            {
+                
+                this.groupSockets[_s].emif("executeTn", this.testLoader.getCurrentTest() );
+            }
+            
+        }
+    }
     
     start()
     {
 
         var groups = this.testLoader.getGroupsList();
-        console.log(this.testLoader);
-        console.log(this.EsgrimaInstance.getTests());
-        console.log(groups);
-        console.log(this.groupsSockets);
+
         var groupsSockets = this.groupsSockets;
         console.info(colors.yellow.bgBlack("Web socket starting the controller"));
         var controller = this.io
             .of('/')
             .on('connection', function (socket) {
-                console.log(groupsSockets);
+
                 groupsSockets[socket.conn.id] = socket;
                 socket.emit('ready', {
                     that: 'only'
-                    , '/chat': 'this  client is ready to execute tests'
+                    , 'ready': 'this  client is ready to execute tests'
                 });
 
 
@@ -82,7 +128,7 @@ class AnswerEventProcessor {
                 });
             });
 
-
+        this.controller = controller;
         for(var i = 0, size = groups.length; i < size ; i++){
 
 
@@ -94,7 +140,7 @@ class AnswerEventProcessor {
                 .of('/'+group)
                 .on('connection', function (socket) {
 
-                    socket.on('executed', function(data){
+                    socket.on('reportTn', function(data){
                         // Test Complete
                         let id = data.test.id;
                         let reports = data.test.reports;

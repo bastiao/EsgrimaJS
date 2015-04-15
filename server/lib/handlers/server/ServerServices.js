@@ -15,9 +15,6 @@ var ServerStartHandler= function(app, io)
         console.info(colors.black.bgYellow("Starting REST service"));
         fsm.start();
 
-        io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
-        io.sockets.emit({command:"start", group:'all'}, { for: 'everyone' });
-
         // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');
         res.send({command:"start", group:'all'});

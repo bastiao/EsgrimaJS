@@ -30,11 +30,11 @@ var StateMachine = require('fsm-as-promised');
 var fsm = StateMachine({
     initial: 'LISTEN',
     events: [
-        { name: 'startTests', from: 'LISTEN', to: 'TEST_LOAD_READY' },
-        { name: 'ready', from: 'TEST_LOAD_READY', to: 'WAIT_FOR_EXECUTATION' },
-        { name: 'executeTn', from: 'WAIT_FOR_EXECUTATION', to: 'EXECUTE_TN' },
-        { name: 'reportTn', from: 'EXECUTE_TN', to: 'WAIT_FOR_EXECUTATION' },
-        { name: 'stopTests', from: 'EXECUTE_TN', to: 'LISTEN' },
+        { name: 'startTests', from: 'LISTEN', to: 'TESTLOADREADY' },
+        { name: 'readyToRun', from: 'TESTLOADREADY', to: 'WAITFOREXECUTATION' },
+        { name: 'executeTn', from: 'WAITFOREXECUTATION', to: 'EXECUTETN' },
+        { name: 'reportTn', from: 'EXECUTETN', to: 'WAITFOREXECUTATION' },
+        { name: 'stopTests', from: 'EXECUTETN', to: 'LISTEN' },
         
     ],
     callbacks: {
@@ -43,12 +43,19 @@ var fsm = StateMachine({
             
             console.log("Start Tests is now ok. We are now ready to execute.");
             console.log(EventProcessorInstance);
-            EventProcessorInstance.ready();
+            
             // Load the tests.
 
             return options;
         },
-        onready: function (options) {
+        onenteredTESTLOADREADY: function (options) {
+
+            console.log("Leaving: Start Tests is now ok. We are now ready to execute.");
+            console.log(fsm.current);
+            EventProcessorInstance.ready();
+            
+        },
+        onreadyToRun: function (options) {
 
 
             console.log("Now, the client is ready to execute tests.");

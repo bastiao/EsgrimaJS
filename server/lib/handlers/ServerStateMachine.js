@@ -26,6 +26,19 @@ var StateServerEnum = {
 var StateMachine = require('fsm-as-promised');
 
 
+
+
+var AnswerEventProcessorInstance = null;
+
+// Full faith on javascript, and try to find this circular injection.
+// That's why I really like DI. Magic happens!
+
+
+var setEventProcessor = function(instance)
+{
+    AnswerEventProcessorInstance = instance;
+};
+
 var fsm = StateMachine({
     initial: 'LISTEN',
     events: [
@@ -43,6 +56,8 @@ var fsm = StateMachine({
         onstart: function (options) {
 
             console.info(colors.black.bgYellow("State: "+options.name));
+
+            AnswerEventProcessorInstance.prepareAndLoad();
             return options;
         },
         onstartPipeline: function (options) {
@@ -50,27 +65,39 @@ var fsm = StateMachine({
             return options;
         },
         onready: function (options) {
-
+            
+            AnswerEventProcessorInstance.readyState(id);
+            return options;
         },
         onmissClients: function (options) {
 
             console.info(colors.black.bgYellow("State: "+options.name));
+            return options;
         },
         onallClientsReady: function (options) {
-
+            
             console.info(colors.black.bgYellow("State: "+options.name));
+
+
+            return options;
+            
         },
         onexecuteTn: function (options) {
             console.info(colors.black.bgYellow("State: "+options.name));
+            return options;
         },
         onreportTn: function (options) {
             console.info(colors.black.bgYellow("State: "+options.name));
+            AnswerEventProcessorInstance.runNextTest();
+            return options;
         },
         onnoMoreTests: function (options) {
             console.info(colors.black.bgYellow("State: "+options.name));
+            // Stop! Do nothing.
+            return options;
         }
     }
 });
 
 
-export {fsm}
+export {fsm, setEventProcessor}

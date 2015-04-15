@@ -56,22 +56,12 @@ app.use("/web", express.static(__dirname + '/../webmanagement/'));
 // List the groups!
 
 
+import {fsm, setEventProcessor} from './handlers/ServerStateMachine';
+
 var AnswerEventProcessorInstance = new AnswerEventProcessor(io, EsgrimaInstance);
+setEventProcessor(AnswerEventProcessorInstance)
 AnswerEventProcessorInstance.start();
 
-import {fsm} from './handlers/ServerStateMachine';
-
-/*
-fsm.start().then(function () {
-    console.log("fsm.current");
-    console.log(fsm.current);
-    fsm.startPipeline().catch(function (err) {
-        console.log(err);
-    });
-
-});
-
-*/
 
 
 import {RegisterServerServices} from './handlers/server/ServerServices';
