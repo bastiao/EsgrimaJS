@@ -18,9 +18,10 @@ class AnswerEventProcessor {
         this.EsgrimaInstance = EsgrimaInstance;
         this.testLoader = new TestLoader(EsgrimaInstance.getTests());
         this.testLoader.register(EsgrimaInstance.getTests(), this.EsgrimaInstance.getGroups())
-        this.testLoader.registerGroups( this.EsgrimaInstance.getGroups());
-        
-
+        this.testLoader.registerGroups(this.EsgrimaInstance.getGroups());
+        this.resetAll();
+    }
+    resetAll(){
         /**
          *  
          * Contains the group sockets.
@@ -42,6 +43,27 @@ class AnswerEventProcessor {
         this.readyWaiting = [];
         
     }
+    
+    reset()
+    {
+
+        for (var _s in this.clientSockets)
+        {
+            
+            console.log("Reset with" + _s);
+            if (this.clientSockets.hasOwnProperty(_s))
+            {
+                console.log("Reset with_" + _s);
+                this.clientSockets[_s].emit("stopTests" );
+            }
+
+        }
+        this.resetAll();
+        this.testLoader.start();
+        this.start();
+        
+        
+    }
 
     areAllTheClientsReady()
     {
@@ -60,8 +82,10 @@ class AnswerEventProcessor {
 
     prepareAndLoad()
     {
-        console.info(colors.black.bgYellow("prepareAndLoad"));
-        
+        console.info(colors.black.bgYellow("prepareAndLoad2"));
+
+        console.info(this.EsgrimaInstance);
+        console.info(this.EsgrimaInstance.getTests());
         
         var controller = this.controller;
         console.log("fsm.current");
@@ -132,22 +156,17 @@ class AnswerEventProcessor {
     executeTest()
     {
 
-        console.log("Current test: ");
-        console.log(this.testLoader.getCurrentTest());
         
         var idTest = this.testLoader.getCurrentTest().description;
         console.log(idTest);
-        console.log(this.groupsSockets);
+
         
         for (var _s in this.groupsSockets)
         {
-            console.log("Loging " + _s);
-            console.log("Checking to "+this.testLoader.getCurrentTest().args.group);
+
             if (this.groupsSockets.hasOwnProperty(_s))
             {
                 
-                console.log("Checking to "+this.testLoader.getCurrentTest().args.group);
-                console.log("Checking to _S "+_s);
                 if (this.testLoader.getCurrentTest().args.group===_s)
                 {
                     console.log("Emiting Execute Tn of " + idTest + " to " + _s);
@@ -163,28 +182,33 @@ class AnswerEventProcessor {
 
 
     noMoreTests(){
-
-        for (var _s in this.groupSockets)
+        console.log("Emmiting message to the group noMoreTests");
+        for (var _s in this.groupsSockets)
         {
-            if (this.groupSockets.hasOwnProperty(_s))
+            if (this.groupsSockets.hasOwnProperty(_s))
             {
+                console.log("Emmiting message to the group noMoreTests");
 
-                this.groupSockets[_s].emif("stopTests");
+                this.emitMessageForAGroup( "stopTests",{} ,_s );
+
             }
 
         }
-
+        console.log("Emmiting message to the group noMoreTests (controllers)");
+        console.log()
         for (var _s in this.clientSockets)
         {
-            if (this.clientSockets.hasOwnProperty(_s))
-            {
-
-                this.clientSockets[_s].emif("stopTests" );
-            }
+            console.log(_s);
+            console.log("Emmiting message to the group noMoreTests (controllerS)");
+            this.clientSockets[_s].emit("stopTests" );
 
         }
 
-        fsm.noMoreTests();
+        fsm.noMoreTests().catch(function (err) {
+            console.log("fsm.current");
+            console.log(fsm.current);
+            console.log(err);
+        });;
     }
     
     
@@ -246,7 +270,7 @@ class AnswerEventProcessor {
                 socket.on('disconnect', function(){
                     console.log("Disconnecting.");
                     delete self.clientSockets[socket.conn.id];
-                    resetServerStateMachine();
+                    //resetServerStateMachine();
                 });
             });
 

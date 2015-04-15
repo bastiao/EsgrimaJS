@@ -44,13 +44,13 @@ var fsm = StateMachine({
         { name: 'start', from: 'LISTEN', to: 'PREPARETESTS' },
         { name: 'startPipeline', from: 'PREPARETESTS', to: 'WAITFORCLIENTSREADY' },
         { name: 'readyToRun', from: ['WAITFORCLIENTSREADY'], to: 'ARECLIENTSREADY' },
-        { name: 'missClients', from: ['ARECLIENTSREADY'], to: 'WAITFORCLIENTS_READY' },
+        { name: 'missClients', from: ['ARECLIENTSREADY'], to: 'WAITFORCLIENTSREADY' },
         { name: 'allClientsReady', from: ['ARECLIENTSREADY'], to: 'RUNNEXTTEST' },
         { name: 'executeTn', from: ['RUNNEXTTEST'], to: 'WAITFORREPORTTN' },
         { name: 'reportTn', from: ['WAITFORREPORTTN'], to: 'RUNNEXTTEST' },
-        { name: 'noMoreTests', from: ['RUNNEXT_TEST'], to: 'LISTEN' },
+        { name: 'noMoreTests', from: ['RUNNEXTTEST'], to: 'LISTEN' },
         
-        { name: 'resetStates', from: ['PREPARETESTS', 'WAITFORCLIENTSREADY', 'ARECLIENTSREADY',
+        { name: 'resetStates', from: ['LISTEN','PREPARETESTS', 'WAITFORCLIENTSREADY', 'ARECLIENTSREADY',
             'RUNNEXTTEST', 'WAITFORREPORTTN' ], to: 'LISTEN' }
         
 
@@ -68,7 +68,7 @@ var fsm = StateMachine({
             return options;
         },
         onreadyToRun: function (options) {
-            // TODO: WORK HERE!!
+            
             AnswerEventProcessorInstance.readyState(options.args.id);
             return options;
         },
@@ -122,6 +122,14 @@ var fsm = StateMachine({
             console.info(colors.black.bgYellow("State: "+options.name));
             // Stop! Do nothing.
             return options;
+        },
+
+        onresetStates: function(options)
+        {
+
+            console.log("Reset sstate Machine!!");
+            AnswerEventProcessorInstance.reset();
+            
         }
     }
 });

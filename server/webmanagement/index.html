@@ -8,6 +8,12 @@
 
 <script type="text/javascript">
 
+
+    var myFunction = function(){
+        console.log("key down!");
+
+    }
+    
     console.log("EsgrimaJSLoader");
     console.log("EsgrimaJSLoader#######");
     console.log(window.document.getElementById("results"));
@@ -16,7 +22,6 @@
     console.log(document.getElementById("results"));
     console.log(document.getElementById("search"));
 
-    
     
     
 </script>
@@ -28,8 +33,13 @@
 <div>
     Esgrima JS - The web test framework to work in distributed enviroments.
 </div>
+
+
 <div id="search">
     Search
+    <!--<input type="text" onkeydown="myFunction()">
+    <input id="searchInt" type="text" onkeydown="myFunction()">-->
+
 </div>
 </body>
 

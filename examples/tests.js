@@ -34,7 +34,7 @@ var jsEsgrima = function(description, callbackOfTests, args, group){
         'group': group});
 };
 
-
+/*
 jsEsgrima("Search for Something", function() {
   it("contains spec with an expectation", function() {
     console.log("This is an action");
@@ -44,7 +44,7 @@ jsEsgrima("Search for Something", function() {
 }, {}, 'search');
 
 
-
+*/
 jsEsgrima("t1", trigger, {id:'#search', event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
@@ -57,7 +57,7 @@ jsEsgrima("t2", trigger, {id:'#search', event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;
-    }, group:"search", function (){}},
+    }, group:"results", function (){}},
     'search');
 
 jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group: "search", 
@@ -71,7 +71,7 @@ jsEsgrima("t3", trigger, {id:'#search', event: function () {
     }, group:"search", function (){}},
     'search');
 
-
+/*
 jsEsgrima("Look for the result", function() {
   it("contains spec with an expectation", function() {
     console.log("lol");
@@ -80,7 +80,7 @@ jsEsgrima("Look for the result", function() {
   });
 }, {},'results');
 
-
+*/
 
 console.log(EsgrimaTestSuite);
 //EsgrimaTestSuite.shift();

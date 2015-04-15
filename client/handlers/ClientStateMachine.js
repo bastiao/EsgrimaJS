@@ -34,7 +34,8 @@ var fsm = StateMachine({
         { name: 'readyToRun', from: 'TESTLOADREADY', to: 'WAITFOREXECUTATION' },
         { name: 'executeTn', from: 'WAITFOREXECUTATION', to: 'EXECUTETN' },
         { name: 'reportTn', from: 'EXECUTETN', to: 'WAITFOREXECUTATION' },
-        { name: 'stopTests', from: 'EXECUTETN', to: 'LISTEN' },
+        { name: 'stopTests', from: ['LISTEN','EXECUTETN','TESTLOADREADY','WAITFOREXECUTATION'],
+            to: 'LISTEN' },
         
     ],
     callbacks: {
@@ -96,6 +97,9 @@ var fsm = StateMachine({
             return options;
         },
         onstopTests: function (options) {
+            
+
+            
             EventProcessorInstance.stopTests();
             return options;
         }

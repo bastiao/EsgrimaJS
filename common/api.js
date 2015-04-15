@@ -58,11 +58,12 @@ var value = function(args){
 var trigger = function(args){
     //id, event, group, callBackResult
     
-    console.log(args);
-    console.log(args.id);
-    console.log($(args.id));
-    $(args.id).html("Just a change in HTML");
+
+    //$(args.id).html("Just a change in HTML");
     $(args.id).trigger(args.event());
+
+    //$("#searchInt").trigger(args.event());
+    
 };
 
 var setValue = function(args){
@@ -72,6 +73,8 @@ var setValue = function(args){
 
 var waitForElementPresent = function(args){
     // id, timeout, group, callBackResult
+    
+    
 
 };
 

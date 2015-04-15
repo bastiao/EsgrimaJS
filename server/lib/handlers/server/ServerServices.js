@@ -15,13 +15,28 @@ var ServerStartHandler= function(app, io)
         // Send the message for all the clients
 
         console.info(colors.black.bgYellow("Starting REST service"));
-        fsm.start();
+        console.log(fsm);
+        fsm.start().then(function()
+            {
+                fsm.startPipeline().catch(function (err) {
+                    console.log("fsm.current");
+                    console.log(fsm.current);
+                    console.log(err);
+                });
+                
+            }
+        
+        ).catch(function (err) {
+            console.log("fsm.current");
+            console.log(fsm.current);
+            console.log(err);
+        });
 
         // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');
         res.send({command:"start", group:'all'});
 
-        fsm.startPipeline();
+        
         
         
     });
@@ -33,8 +48,12 @@ var ServerStopHandler= function(app, io)
 
     app.get("/api/stop", function(req, res){
         // Send the message for all the clients
-        io.emit({command:"stop", group:'all'}, { for: 'everyone' });
-
+        console.info(colors.black.bgYellow("@Reset state machine"));
+        fsm.resetStates().catch(function (err) {
+            console.log("fsm.current");
+            console.log(fsm.current);
+            console.log(err);
+        });
         // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');
         res.send({command:"stop", group:'all'});
@@ -70,7 +89,6 @@ var ServerGroupsHandler= function(app, io)
 var RegisterServerServices = function(app, io)
 {
     
-    ServerStartHandler(app,io);
     ServerStartHandler(app,io);
     ServerStopHandler(app,io);
     ServerClientsHandler(app,io);

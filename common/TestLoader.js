@@ -23,7 +23,7 @@ class TestLoader
     
     start()
     {
-        this.currentIndex = 0 ;
+        this.currentIndex = -1 ;
         this.currentTest = this.testSuite[this.currentIndex];
     }
     
