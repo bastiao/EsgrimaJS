@@ -55,9 +55,14 @@ var fsm = StateMachine({
             EventProcessorInstance.ready();
             
         },
+        onleaveTESTLOADREADY: function (options)
+        {
+            
+            
+        },
         onreadyToRun: function (options) {
 
-
+            EventProcessorInstance.emitsReadyToRun();
             console.log("Now, the client is ready to execute tests.");
             // Emited ready.
 

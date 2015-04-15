@@ -34,12 +34,13 @@ class EventProcessor {
         this.controller.on('startTests', function (data) {
             console.log("Tests are starting");
             fsm.startTests();
-            controller.emit('ready');
+            //controller.emit('ready');
         });
 
 
         this.controller.on('stopTests', function (data) {
-
+            console.log("Reset the state machine.");
+            console.log("No more tests available!!");
             fsm.stopTests();
 
         });
@@ -57,7 +58,7 @@ class EventProcessor {
         var group = this.group;
 
         this.group.on('connect', function (data) {
-            group.emit('ready');
+            //group.emit('ready');
         });
 
         this.group.on('executeTn', function (data) {
@@ -76,10 +77,8 @@ class EventProcessor {
         });
 
     }
-    
-    
-    ready()
-    {
+
+    ready() {
 
         console.log("fsm.current");
         console.log(fsm.current);
@@ -87,9 +86,9 @@ class EventProcessor {
             console.log(err);
         });
 
-
+    }
+    emitsReadyToRun(){
         this.controller.emit('ready');
-
     }
     stopTests()
     {

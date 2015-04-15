@@ -65,9 +65,14 @@ var fsm = StateMachine({
             return options;
         },
         onreadyToRun: function (options) {
-            
-            AnswerEventProcessorInstance.readyState(id);
+            // TODO: WORK HERE!!
+            AnswerEventProcessorInstance.readyState(options.args.id);
             return options;
+        },
+        
+        onenteredARECLIENTSREADY: function (options) {
+            AnswerEventProcessorInstance.clientsConnectedOrNot();
+            return options
         },
         onmissClients: function (options) {
 
@@ -78,17 +83,36 @@ var fsm = StateMachine({
             
             console.info(colors.black.bgYellow("State: "+options.name));
 
-
             return options;
             
         },
+
+        onenteredRUNNEXTTEST: function (options) {
+            console.info(colors.black.bgRed("Entering the Run Next Tests"));
+            var _v = AnswerEventProcessorInstance.runNextTest();
+            if (_v)
+            {
+                console.info(colors.black.bgRed("There are tests to run. Emitting to sockets"));
+                console.info(colors.black.bgRed("and wait for the reports."));
+                AnswerEventProcessorInstance.executeTest();
+            }
+            else
+            {
+
+                console.info(colors.black.bgRed("No more tests available."));
+                AnswerEventProcessorInstance.noMoreTests();
+                
+            }
+            
+        },
+        
         onexecuteTn: function (options) {
             console.info(colors.black.bgYellow("State: "+options.name));
             return options;
         },
         onreportTn: function (options) {
             console.info(colors.black.bgYellow("State: "+options.name));
-            AnswerEventProcessorInstance.runNextTest();
+            
             return options;
         },
         onnoMoreTests: function (options) {

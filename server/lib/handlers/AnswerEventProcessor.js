@@ -25,14 +25,24 @@ class AnswerEventProcessor {
          * For instance, for a particular group  
          */
         this.groupsSockets = {};
+        this.clientSockets = {};
         this.readyWaiting = [];
         
     }
 
     areAllTheClientsReady()
     {
-        console.log(this.groupsSockets.length);
-        return this.groupsSockets.length != this.readyWaiting.length;
+
+        var count = 0;
+        for (var i in this.clientSockets) {
+            if (this.clientSockets.hasOwnProperty(i)) count++;
+        }
+
+
+        console.log(count);
+        
+        console.log(this.readyWaiting.length);
+        return (count) <= this.readyWaiting.length;
     }
 
     prepareAndLoad()
@@ -55,13 +65,16 @@ class AnswerEventProcessor {
             });;
         
     }
-    readyState(id)
-    {
+    readyState(id) {
 
         console.info(colors.black.bgYellow("readyState"));
-        
+
         this.readyWaiting.push(id);
-        if (areAllTheClientsReady)
+
+    }
+    clientsConnectedOrNot() {
+        console.info(colors.black.bgYellow("clientsConnectedOrNot"));
+        if (this.areAllTheClientsReady())
         {
             console.info(colors.black.bgYellow("areAllTheClientsReady"));
             fsm.allClientsReady();
@@ -80,9 +93,11 @@ class AnswerEventProcessor {
     
     runNextTest()
     {
-
+        var value = this.testLoader.hasNext();
         if (this.testLoader.hasNext())
             this.testLoader.next();
+        return value;
+
     }
 
     executeTest()
@@ -98,7 +113,36 @@ class AnswerEventProcessor {
             }
             
         }
+
+        fsm.executeTn( this.testLoader.getCurrentTest());
     }
+
+
+    noMoreTests(){
+
+        for (var _s in this.groupSockets)
+        {
+            if (this.groupSockets.hasOwnProperty(_s))
+            {
+
+                this.groupSockets[_s].emif("stopTests");
+            }
+
+        }
+
+        for (var _s in this.clientSockets)
+        {
+            if (this.clientSockets.hasOwnProperty(_s))
+            {
+
+                this.clientSockets[_s].emif("stopTests" );
+            }
+
+        }
+
+        fsm.noMoreTests();
+    }
+    
     
     start()
     {
@@ -106,14 +150,17 @@ class AnswerEventProcessor {
         var groups = this.testLoader.getGroupsList();
 
         var groupsSockets = this.groupsSockets;
+        var clientSockets =  this.clientSockets;
         console.info(colors.yellow.bgBlack("Web socket starting the controller"));
         var controller = this.io
             .of('/')
             .on('connection', function (socket) {
 
-                groupsSockets[socket.conn.id] = socket;
+                clientSockets[socket.conn.id] = socket;
+                console.info(colors.yellow.bgBlack("On Connect this sends a ready to another controller."));
+
                 socket.emit('ready', {
-                    that: 'only'
+                    sentByController: true
                     , 'ready': 'this  client is ready to execute tests'
                 });
 
@@ -122,14 +169,15 @@ class AnswerEventProcessor {
 
                 });
 
-                socket.on('ready', function(){
+                socket.on('ready', function(data){
 
                     console.log("fsm.current");
                     console.log(fsm.current);
-                    
+                    console.log("data");
+                    console.log(data);
                     
                     console.info(colors.yellow.bgBlack("The thing is now ready to start the pipeline."));
-                    fsm.readyToRun().catch(function (err) {
+                    fsm.readyToRun({"id": socket.conn.id}).catch(function (err) {
                         console.log(err);
                     });
                     console.log("fsm.current");
@@ -151,7 +199,7 @@ class AnswerEventProcessor {
                 });
                 
                 socket.on('disconnect', function(){
-                    delete groupsSockets[socket.conn.id];
+                    delete clientSockets[socket.conn.id];
                 });
             });
 
@@ -166,6 +214,8 @@ class AnswerEventProcessor {
             let groupSocket = this.io
                 .of('/'+group)
                 .on('connection', function (socket) {
+
+                    groupsSockets[group] = socket;
 
                     socket.on('reportTn', function(data){
                         // Test Complete
@@ -186,7 +236,7 @@ class AnswerEventProcessor {
                     
                 });
 
-            groupsSockets[group] = groupSocket;
+            
             
         }
 
