@@ -68,6 +68,8 @@ var fsm = StateMachine({
 
             return options;
         },
+
+
         onexecuteTn: function (options) {
             
             // Get the tests from the test loader and run it.
@@ -76,11 +78,20 @@ var fsm = StateMachine({
             EventProcessorInstance.executeTest(options.args[0].description);
             return options;
         },
+        
+        onenteredEXECUTETN: function (options)
+        {
+            console.log(options);
+            EventProcessorInstance.sendReport();
+            return options;
+        },
+
+        
         onreportTn: function (options) {
             
             // Send back the report by web sockets.
             // It is needed to take into account the report. 
-            EventProcessorInstance.report(args.id, {});
+            
 
             return options;
         },
