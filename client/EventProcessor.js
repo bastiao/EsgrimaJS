@@ -16,8 +16,8 @@ class EventProcessor {
         this.EsgrimaInstance = EsgrimaInstance;
         this.testSuiteList = EsgrimaInstance.getTests();
         this.groupName = EsgrimaInstance.getMyGroup();
-        
 
+        this.reportedTest = {};
     }
 
     start() {
@@ -121,13 +121,29 @@ class EventProcessor {
         this.report(this.executedTest, this.reportedTest)
         
     }
-    
-    executeTest(id)
-    {
+
+    preExecuteTest(id) {
         this.executedTest = id;
         console.log("Executing test number: " + id);
         // The code to execute the test
-        this.EsgrimaInstance.getTestByName(id).callbackOfTests(this.EsgrimaInstance.getTestByName(id).args);
+    }
+    executeTest()
+    {
+
+
+        //EventProcessorInstance.sendReport();
+        var testToExecute = this.EsgrimaInstance.getTestByName(this.executedTest);
+        var self = this;
+        var linkToFunction = testToExecute.args.callBackResult;
+        var callBackResultDemo = function(){
+            console.log("Finishing the operation!!! ");
+            self.report(self.executedTest, self.reportedTest)
+            linkToFunction();
+        } ;
+        testToExecute.args.callBackResult = callBackResultDemo;
+        
+        
+        testToExecute.callbackOfTests(testToExecute.args);
         this.reportedTest = {};
         
     }

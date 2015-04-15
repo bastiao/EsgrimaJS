@@ -45,7 +45,7 @@ jsEsgrima("Search for Something", function() {
 
 
 */
-jsEsgrima("t1", trigger, {id:'#search', event: function () {
+jsEsgrima("t1", trigger, {id:'#search', callBackResult: function (){console.log("t1")}, event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;
@@ -53,7 +53,7 @@ jsEsgrima("t1", trigger, {id:'#search', event: function () {
     , group:"search", function (){}},
     'search');
 
-jsEsgrima("t2", trigger, {id:'#search', event: function () {
+jsEsgrima("t2", trigger, {id:'#search', callBackResult: function (){console.log("t2")},event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;
@@ -61,10 +61,10 @@ jsEsgrima("t2", trigger, {id:'#search', event: function () {
     'search');
 
 jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group: "search", 
-        callBackResult: function (){}},
+        callBackResult: function (){console.log("a1")}},
     'search');
 
-jsEsgrima("t3", trigger, {id:'#search', event: function () {
+jsEsgrima("t3", trigger, {id:'#search', callBackResult: function (){console.log("a1")}, event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;

@@ -26,8 +26,6 @@ var StateServerEnum = {
 var StateMachine = require('fsm-as-promised');
 
 
-
-
 var AnswerEventProcessorInstance = null;
 
 // Full faith on javascript, and try to find this circular injection.

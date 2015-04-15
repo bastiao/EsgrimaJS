@@ -54,6 +54,16 @@ var value = function(args){
 };
 
 
+var html = function(args){
+    //id, event, group, callBackResult
+
+
+    $(args.id).html("Just a change in HTML");
+    args.callBackResult();
+
+};
+
+
 // Commands 
 var trigger = function(args){
     //id, event, group, callBackResult
@@ -62,6 +72,8 @@ var trigger = function(args){
     //$(args.id).html("Just a change in HTML");
     $(args.id).trigger(args.event());
 
+    args.callBackResult();
+
     //$("#searchInt").trigger(args.event());
     
 };
@@ -69,10 +81,19 @@ var trigger = function(args){
 var setValue = function(args){
     //id, data, group, callBackResult
     $(args.id).val(args.data);
+    
+    
+    
 };
 
 var waitForElementPresent = function(args){
     // id, timeout, group, callBackResult
+    
+    
+    setTimeout(function(){
+        args.callBackResult();
+        
+    }, args.timeout)
     
     
 
