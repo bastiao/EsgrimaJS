@@ -42,18 +42,18 @@ var setEventProcessor = function(instance)
 var fsm = StateMachine({
     initial: 'LISTEN',
     events: [
-        { name: 'start', from: 'LISTEN', to: 'PREPARE_TESTS' },
-        { name: 'startPipeline', from: 'PREPARE_TESTS', to: 'WAIT_FOR_CLIENTS_READY' },
-        { name: 'ready', from: ['WAIT_FOR_CLIENTS_READY'], to: 'ARE_CLIENTS_READY' },
-        { name: 'missClients', from: ['ARE_CLIENTS_READY'], to: 'WAIT_FOR_CLIENTS_READY' },
-        { name: 'allClientsReady', from: ['ARE_CLIENTS_READY'], to: 'RUN_NEXT_TEST' },
-        { name: 'executeTn', from: ['RUN_NEXT_TEST'], to: 'WAIT_FOR_REPORT_TN' },
-        { name: 'reportTn', from: ['WAIT_FOR_REPORT_TN'], to: 'RUN_NEXT_TEST' },
-        { name: 'noMoreTests', from: ['RUN_NEXT_TEST'], to: 'LISTEN' }
+        { name: 'start', from: 'LISTEN', to: 'PREPARETESTS' },
+        { name: 'startPipeline', from: 'PREPARETESTS', to: 'WAITFORCLIENTSREADY' },
+        { name: 'readyToRun', from: ['WAITFORCLIENTSREADY'], to: 'ARECLIENTSREADY' },
+        { name: 'missClients', from: ['ARECLIENTSREADY'], to: 'WAITFORCLIENTS_READY' },
+        { name: 'allClientsReady', from: ['ARECLIENTSREADY'], to: 'RUNNEXTTEST' },
+        { name: 'executeTn', from: ['RUNNEXTTEST'], to: 'WAITFORREPORTTN' },
+        { name: 'reportTn', from: ['WAITFORREPORTTN'], to: 'RUNNEXTTEST' },
+        { name: 'noMoreTests', from: ['RUNNEXT_TEST'], to: 'LISTEN' }
         
     ],
     callbacks: {
-        onstart: function (options) {
+        onenteredPREPARETESTS: function (options) {
 
             console.info(colors.black.bgYellow("State: "+options.name));
 
@@ -64,7 +64,7 @@ var fsm = StateMachine({
             console.info(colors.black.bgYellow("State: "+options.name));
             return options;
         },
-        onready: function (options) {
+        onreadyToRun: function (options) {
             
             AnswerEventProcessorInstance.readyState(id);
             return options;

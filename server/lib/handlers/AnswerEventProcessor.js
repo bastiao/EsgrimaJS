@@ -38,21 +38,37 @@ class AnswerEventProcessor {
     prepareAndLoad()
     {
         console.info(colors.black.bgYellow("prepareAndLoad"));
-        console.log(this.controller);
-
-        this.controller.emit('startTests', {});
-        fsm.startPipeline();
+        
+        
+        var controller = this.controller;
+        console.log("fsm.current");
+        console.log(fsm.current);
+        fsm.startPipeline().then(function ()
+            {
+                console.log("Started the pipeline?");
+                controller.emit('startTests', {});
+            }
+        ).catch(function (err) {
+                console.log("fsm.current");
+                console.log(fsm.current);
+                console.log(err);
+            });;
+        
     }
     readyState(id)
     {
+
+        console.info(colors.black.bgYellow("readyState"));
+        
         this.readyWaiting.push(id);
         if (areAllTheClientsReady)
         {
-            
+            console.info(colors.black.bgYellow("areAllTheClientsReady"));
             fsm.allClientsReady();
             
         }
         else{
+            console.info(colors.black.bgYellow("missClients"));
             fsm.missClients();
         }
         
@@ -108,7 +124,18 @@ class AnswerEventProcessor {
 
                 socket.on('ready', function(){
 
-                    fsm.ready();
+                    console.log("fsm.current");
+                    console.log(fsm.current);
+                    
+                    
+                    console.info(colors.yellow.bgBlack("The thing is now ready to start the pipeline."));
+                    fsm.readyToRun().catch(function (err) {
+                        console.log(err);
+                    });
+                    console.log("fsm.current");
+                    console.log(fsm.current);
+                    
+                    
                     
                 });
                 
