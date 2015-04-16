@@ -45,7 +45,7 @@ jsEsgrima("Search for Something", function() {
 
 
 */
-jsEsgrima("t1", trigger, {id:'#search', callBackResult: function (){console.log("!t1")}, event: function () {
+jsEsgrima("ttt11", trigger, {id:'#search', callBackResult: function (){console.log("!t1")}, event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;

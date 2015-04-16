@@ -19,5 +19,5 @@ console.log = function() {
         old_console_log.apply(this, arguments);
     }
 }
-
-export {Configs, DEBUG, TESTS_DIRECTORY}
+var testLoader = "myAppTests";
+export {Configs, DEBUG, TESTS_DIRECTORY, testLoader}

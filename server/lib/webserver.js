@@ -5,6 +5,7 @@
 
 import {Configs} from './configs'
 import {DEBUG} from './configs'
+import {testLoader} from './configs'
 
 
 import {AnswerEventProcessor} from './handlers/AnswerEventProcessor';
@@ -17,7 +18,10 @@ import {appEnv} from '../../common/enviroment';
  * TODO: But it is quite difficult to find an easy and beautiful way */
 
 import {EsgrimaInstance} from '../../client/esgrima';
-import {EsgrimaTestSuite} from '../../examples/index';
+
+
+var EsgrimaTestSuite = require("../../"+testLoader+"/index").EsgrimaTestSuite;
+//import {EsgrimaTestSuite} from '../../examples/index';
 
 console.log(EsgrimaInstance.getTests());
 
