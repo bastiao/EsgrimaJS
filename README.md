@@ -39,6 +39,10 @@ Another clear advantage, is the possibility to run any javascript code. While in
 are limited to their API to run your interface tests, here, you can handle javascript triggers
 and do it in a different way, like for instance, run unit tests and so on. 
 
+The philosophy of EsgrimaJS is totally different from the others. The key idea is each test module 
+will belong to a group. And each test will run in a group, which mean that it is in
+one machine or one thousand machines.
+
 
 ## How to use?
 
