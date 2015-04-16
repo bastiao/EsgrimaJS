@@ -11,7 +11,9 @@ And all the tests need to communicate? Use this framework!
 * You can execute the already exists Unit Tests for the modules.
 * Define a pipeline with the tests between different enviroments. 
 * Loop the pipeline and use the tests as a "stress-tests" also.
-
+* Test in chrome app?
+* Test in the mobile enviroments? 
+* Any other web sandbox?
 
 ## Why we built another framework?
 
@@ -43,17 +45,13 @@ The philosophy of EsgrimaJS is totally different from the others. The key idea i
 will belong to a group. And each test will run in a group, which mean that it is in
 one machine or one thousand machines.
 
+Finally, did you plan interface tests in Mobile devices? Do you want to do? No idea? EsgrimaJS solves it for you!
 
 ## How to use?
 
 - [How To Install and Use?](docs/HOWTO.md)
 
 
-## Are you able to integrate your code? Why are you create another test framework?
-
-I'm running of time and I just have a weekend to built this tool.
-Of course, I want to integrate it in another framework such as Karma, but
-their phiolosofy is a bit different.
 
 ## Architecture
 
@@ -62,6 +60,11 @@ their phiolosofy is a bit different.
 - [Pipeline](docs/Pipeline.md)
 - [Communication](docs/Communication.md)
 
+
+## Technology
+
+The server and client are built in Javascript mainly using ECMAScript 6. The websockets is based on socket.io. 
+The framework can works over HTTP or HTTPS.
 
 ## Known issues
 
@@ -87,6 +90,7 @@ Follow the same recomendations: https://github.com/TooTallNate/node-gyp#installa
 # Authorship & Inspiring 
 
 - Luís A. Bastião Silva <bastiao@ua.pt>
+- Ideas/Contributions from: Eriksson Monteiro and David Campos.
 
 
 Many of the philosofy is taken from Karma. So kudos for Karma and for

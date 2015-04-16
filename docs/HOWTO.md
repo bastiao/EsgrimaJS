@@ -34,7 +34,15 @@ jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group
 jsEsgrima("t3", trigger, {id:'#search', event: e, group:"search", function (){}},
     'search');
 
+jsEsgrima("t5", function(args){
 
+        $("#search").html("Just a change in HTML");
+        
+        console.log(window);
+        args.callBackResult();
+
+    }, {id:'#search', callBackResult: function (){console.log("!t5")}, group:"search", function (){}},
+    'search');
 
 
 jsEsgrima("Look for the result", function() {
@@ -81,6 +89,9 @@ export {jsEsgrimaGroups}
 ./node_modules/babel/bin/babel-node server/lib/webserver.js
 
 ## Running the server:
+
+TODO: fix it ! We still need to build the scripts.
+Moreover, in windows, the npm start still do not work! 
 
 ```
 $ ./jsEsgrima build

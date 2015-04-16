@@ -5,6 +5,9 @@ console.log("Loading client module.");
 
 import {Configs, testLoader} from './configs';
 
+
+
+/* TODO: THIS IS REALLY IMPORTANT TO FIX TO HAVE DYNAMIC LOADING OF TESTS */
 import {jsEsgrimaGroups} from '../examples/config';
 import {EsgrimaTestSuite} from '../examples/tests';
 /*
