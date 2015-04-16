@@ -223,6 +223,11 @@ class AnswerEventProcessor {
                     , 'ready': 'this  client is ready to execute tests'
                 });
 
+                if (self.testLoader.getCurrentIndex() !== -1)
+                {
+                    controller.emit('startTests', {});
+                }
+
 
                 socket.on('start', function(){
 

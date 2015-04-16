@@ -115,6 +115,22 @@ var fsm = StateMachine({
         },
         onnoMoreTests: function (options) {
             AnswerEventProcessorInstance.reset();
+
+            setTimeout(function()
+                {      
+                  fsm.start().then(function()
+                    {
+
+
+                    }   
+
+                 ).catch(function (err) {
+                    console.log("fsm.current");
+                    console.log(fsm.current);
+                    console.log(err);
+                });
+
+                 }, 1000);
             // Stop! Do nothing.
             return options;
         },

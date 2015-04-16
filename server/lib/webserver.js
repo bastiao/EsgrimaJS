@@ -65,12 +65,17 @@ var app = express();
 
 
 app.use("/web", express.static(__dirname + '/../webmanagement/'));
-
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'localhost');
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  return next();
+});
 // your express configuration here
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
-var io = require('socket.io').listen(httpServer);
+var io = require('socket.io').listen(httpsServer);
 httpServer.listen(Configs.port);
 httpsServer.listen(8443);
 

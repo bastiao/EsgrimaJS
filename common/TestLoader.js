@@ -33,6 +33,11 @@ class TestLoader
         return this.testRunning 
 
     }
+
+    getCurrentIndex()
+    {
+        return this.currentIndex;
+    }
     
     completeTest(id, reports, assertations)
     {
