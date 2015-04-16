@@ -106,6 +106,7 @@ class EventProcessor {
     {
         this.controller.emit('stoppedTests');
         
+        
     }
     
     report(id, report)

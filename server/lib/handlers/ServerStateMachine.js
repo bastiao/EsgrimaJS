@@ -115,7 +115,7 @@ var fsm = StateMachine({
             return options;
         },
         onnoMoreTests: function (options) {
-
+            AnswerEventProcessorInstance.reset();
             // Stop! Do nothing.
             return options;
         },

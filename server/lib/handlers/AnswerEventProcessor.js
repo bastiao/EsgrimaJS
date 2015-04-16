@@ -58,9 +58,9 @@ class AnswerEventProcessor {
             }
 
         }
-        this.resetAll();
+        //this.resetAll();
         this.testLoader.start();
-        this.start();
+        //this.start();
         
         
     }
@@ -241,8 +241,6 @@ class AnswerEventProcessor {
                     
                 });
                 
-
-    
 
                 socket.on('stop', function(){
 
