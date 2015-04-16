@@ -15,22 +15,19 @@ var ServerStartHandler= function(app, io)
         // Send the message for all the clients
 
         console.info(colors.black.bgYellow("Starting REST service"));
+
         console.log(fsm);
         fsm.start().then(function()
             {
-                fsm.startPipeline().catch(function (err) {
-                    console.log("fsm.current");
-                    console.log(fsm.current);
-                    console.log(err);
-                });
-                
+
+
             }
-        
+
         ).catch(function (err) {
-            console.log("fsm.current");
-            console.log(fsm.current);
-            console.log(err);
-        });
+                console.log("fsm.current");
+                console.log(fsm.current);
+                console.log(err);
+            });
 
         // Return the message (response to the request)
         res.setHeader('Content-Type', 'application/json');

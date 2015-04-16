@@ -112,7 +112,8 @@ class EventProcessor {
     {
         fsm.reportTn(id);
         //Send the reports back.
-        this.controller.emit('reportTn', report);
+        console.log("######### Emiting reportTn from " + id);
+        this.group.emit('reportTn', report);
         
     }
     
@@ -134,6 +135,8 @@ class EventProcessor {
         //EventProcessorInstance.sendReport();
         var testToExecute = this.EsgrimaInstance.getTestByName(this.executedTest);
         var self = this;
+
+        this.reportedTest = {"id": self.executedTest};
         var linkToFunction = testToExecute.args.callBackResult;
         var callBackResultDemo = function(){
             console.log("Finishing the operation!!! ");
@@ -144,7 +147,7 @@ class EventProcessor {
         
         
         testToExecute.callbackOfTests(testToExecute.args);
-        this.reportedTest = {};
+        //this.reportedTest = {};
         
     }
     

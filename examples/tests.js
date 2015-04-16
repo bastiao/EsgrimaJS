@@ -45,7 +45,7 @@ jsEsgrima("Search for Something", function() {
 
 
 */
-jsEsgrima("t1", trigger, {id:'#search', callBackResult: function (){console.log("t1")}, event: function () {
+jsEsgrima("t1", trigger, {id:'#search', callBackResult: function (){console.log("!t1")}, event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;
@@ -53,18 +53,18 @@ jsEsgrima("t1", trigger, {id:'#search', callBackResult: function (){console.log(
     , group:"search", function (){}},
     'search');
 
-jsEsgrima("t2", trigger, {id:'#search', callBackResult: function (){console.log("t2")},event: function () {
+jsEsgrima("t2", trigger, {id:'#results', callBackResult: function (){console.log("!t2")},event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;
     }, group:"results", function (){}},
+    'results');
+
+jsEsgrima("t3", waitForElementPresent, {id:"#searchBtnRes", timeout: 20000, group: "search",
+        callBackResult: function (){console.log("!t3")}},
     'search');
 
-jsEsgrima("a1", waitForElementPresent, {id:"#searchBtnRes", timeout: 4000, group: "search", 
-        callBackResult: function (){console.log("a1")}},
-    'search');
-
-jsEsgrima("t3", trigger, {id:'#search', callBackResult: function (){console.log("a1")}, event: function () {
+jsEsgrima("t4", trigger, {id:'#search', callBackResult: function (){console.log("!t4")}, event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;

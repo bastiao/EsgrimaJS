@@ -51,9 +51,9 @@ class TestLoader
     hasNext()
     {
         
-        console.log("Current index: " + this.currentIndex);
-        console.log("Test suite size: " + this.testSuite.length);
-        
+        //console.log("Current index: " + this.currentIndex);
+       //console.log("Test suite size: " + this.testSuite.length);
+
         return (this.currentIndex+1)<this.testSuite.length;
     }
     

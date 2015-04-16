@@ -50,10 +50,10 @@ class AnswerEventProcessor {
         for (var _s in this.clientSockets)
         {
             
-            console.log("Reset with" + _s);
+
             if (this.clientSockets.hasOwnProperty(_s))
             {
-                console.log("Reset with_" + _s);
+
                 this.clientSockets[_s].emit("stopTests" );
             }
 
@@ -82,41 +82,30 @@ class AnswerEventProcessor {
 
     prepareAndLoad()
     {
-        console.info(colors.black.bgYellow("prepareAndLoad2"));
 
-        console.info(this.EsgrimaInstance);
-        console.info(this.EsgrimaInstance.getTests());
-        
         var controller = this.controller;
-        console.log("fsm.current");
-        console.log(fsm.current);
+
         fsm.startPipeline().then(function ()
             {
-                console.log("Started the pipeline?");
+                console.log("Started the pipeline");
                 controller.emit('startTests', {});
             }
         ).catch(function (err) {
-                console.log("fsm.current");
-                console.log(fsm.current);
+                console.log("Error executing pipeline");
                 console.log(err);
             });;
         
     }
     readyState(id) {
 
-        console.info(colors.black.bgYellow("readyState"));
-
         this.readyWaiting.push(id);
 
     }
     clientsConnectedOrNot() {
-        console.info(colors.black.bgYellow("clientsConnectedOrNot"));
 
-        //console.log("Get Tests: ");
-        //console.log(this.testLoader.getTests());
         if (this.areAllTheClientsReady())
         {
-            console.info(colors.black.bgYellow("areAllTheClientsReady"));
+
             fsm.allClientsReady();
             
         }
@@ -134,8 +123,7 @@ class AnswerEventProcessor {
     runNextTest()
     {
         var value = this.testLoader.hasNext();
-        console.log("Has next tests?");
-        console.log(value);
+
         if (this.testLoader.hasNext())
             this.testLoader.next();
         return value;
@@ -149,6 +137,7 @@ class AnswerEventProcessor {
         {
 
             this.groupsSockets[group][i].emit(message, args);
+            this.numberOfWaitingAnswers++;
         }
         
     }
@@ -156,10 +145,12 @@ class AnswerEventProcessor {
     executeTest()
     {
 
-        
+
         var idTest = this.testLoader.getCurrentTest().description;
         console.log(idTest);
-
+        this.groupExecuting = ""; // TODO: fuck, this limits only a test each time :( MUST FIX!!
+        
+        this.numberOfReceivedReports = 0;
         
         for (var _s in this.groupsSockets)
         {
@@ -168,7 +159,10 @@ class AnswerEventProcessor {
             {
                 
                 if (this.testLoader.getCurrentTest().args.group===_s)
+                
                 {
+                    this.groupExecuting = _s;
+                    this.numberOfWaitingAnswers = 0;
                     console.log("Emiting Execute Tn of " + idTest + " to " + _s);
                     this.emitMessageForAGroup("executeTn", this.testLoader.getCurrentTest() , _s);
                     
@@ -187,7 +181,6 @@ class AnswerEventProcessor {
         {
             if (this.groupsSockets.hasOwnProperty(_s))
             {
-                console.log("Emmiting message to the group noMoreTests");
 
                 this.emitMessageForAGroup( "stopTests",{} ,_s );
 
@@ -195,18 +188,15 @@ class AnswerEventProcessor {
 
         }
         console.log("Emmiting message to the group noMoreTests (controllers)");
-        console.log()
+
         for (var _s in this.clientSockets)
         {
-            console.log(_s);
-            console.log("Emmiting message to the group noMoreTests (controllerS)");
             this.clientSockets[_s].emit("stopTests" );
 
         }
 
         fsm.noMoreTests().catch(function (err) {
-            console.log("fsm.current");
-            console.log(fsm.current);
+            console.log("Error in noMoreTests");
             console.log(err);
         });;
     }
@@ -226,7 +216,7 @@ class AnswerEventProcessor {
             .on('connection', function (socket) {
 
                 self.clientSockets[socket.conn.id] = socket;
-                console.info(colors.yellow.bgBlack("On Connect this sends a ready to another controller."));
+                //console.info(colors.yellow.bgBlack("On Connect this sends a ready to another controller."));
 
                 socket.emit('ready', {
                     sentByController: true
@@ -240,28 +230,19 @@ class AnswerEventProcessor {
 
                 socket.on('ready', function(data){
 
-                    console.log("fsm.current");
-                    console.log(fsm.current);
-                    console.log("data");
-                    console.log(data);
+
                     
-                    console.info(colors.yellow.bgBlack("The thing is now ready to start the pipeline."));
+                    //console.info(colors.yellow.bgBlack("The thing is now ready to start the pipeline."));
                     fsm.readyToRun({"id": socket.conn.id}).catch(function (err) {
                         console.log(err);
                     });
-                    console.log("fsm.current");
-                    console.log(fsm.current);
-                    
+
                     
                     
                 });
                 
 
-                socket.on('reportTn', function(){
-
-                    fsm.reportTn();
-
-                });
+    
 
                 socket.on('stop', function(){
 
@@ -294,7 +275,7 @@ class AnswerEventProcessor {
 
                     //console.log(self.groupsSockets[group]);
                     
-
+                    /*
                     socket.on('reportTn', function(data){
                         // Test Complete
                         let id = data.test.id;
@@ -303,12 +284,26 @@ class AnswerEventProcessor {
 
                         this.testLoader.completeTest(id, reports, assertations);
 
+                    });*/
+
+                    socket.on('reportTn', function(data){
+                        console.log("Arrived a new report from executing.");
+                        console.log(data);
+            
+
+                        self.numberOfReceivedReports++;
+                        if (self.numberOfReceivedReports===self.numberOfWaitingAnswers)
+                        {
+                            fsm.reportTn();
+                        }
+                        
+
                     });
 
 
                     socket.on('disconnect', function(){
                         console.log("Disconnecting." + g);
-                        console.log(socket);
+                        //console.log(socket);
                         /*for (var j = 0 ; j<self.groupsSockets[group].length; j++)
                         {
                             if (self.groupsSockets[group][j].conn.id=== socket.conn.id)

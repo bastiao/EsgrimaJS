@@ -58,10 +58,13 @@ app.use("/web", express.static(__dirname + '/../webmanagement/'));
 
 import {fsm, setEventProcessor, resetServerStateMachine} from './handlers/ServerStateMachine';
 
-resetServerStateMachine();
+//resetServerStateMachine();
 
 var AnswerEventProcessorInstance = new AnswerEventProcessor(io, EsgrimaInstance);
 setEventProcessor(AnswerEventProcessorInstance)
+
+
+
 AnswerEventProcessorInstance.start();
 
 

@@ -45,6 +45,7 @@ var fsm = StateMachine({
         { name: 'missClients', from: ['ARECLIENTSREADY'], to: 'WAITFORCLIENTSREADY' },
         { name: 'allClientsReady', from: ['ARECLIENTSREADY'], to: 'RUNNEXTTEST' },
         { name: 'executeTn', from: ['RUNNEXTTEST'], to: 'WAITFORREPORTTN' },
+        { name: 'verifyAllReports', from: ['WAITFORREPORTTN'], to: 'WAITFORREPORTTN' },
         { name: 'reportTn', from: ['WAITFORREPORTTN'], to: 'RUNNEXTTEST' },
         { name: 'noMoreTests', from: ['RUNNEXTTEST'], to: 'LISTEN' },
         
@@ -56,13 +57,13 @@ var fsm = StateMachine({
     callbacks: {
         onenteredPREPARETESTS: function (options) {
 
-            console.info(colors.black.bgYellow("State: "+options.name));
+
 
             AnswerEventProcessorInstance.prepareAndLoad();
             return options;
         },
         onstartPipeline: function (options) {
-            console.info(colors.black.bgYellow("State: "+options.name));
+
             return options;
         },
         onreadyToRun: function (options) {
@@ -77,24 +78,21 @@ var fsm = StateMachine({
         },
         onmissClients: function (options) {
 
-            console.info(colors.black.bgYellow("State: "+options.name));
+
             return options;
         },
         onallClientsReady: function (options) {
-
-            console.info(colors.black.bgYellow("State: "+options.name));
 
             return options;
 
         },
 
         onenteredRUNNEXTTEST: function (options) {
-            console.info(colors.black.bgRed("Entering the Run Next Tests"));
+
             var _v = AnswerEventProcessorInstance.runNextTest();
             if (_v)
             {
                 console.info(colors.black.bgRed("There are tests to run. Emitting to sockets"));
-                console.info(colors.black.bgRed("and wait for the reports."));
                 AnswerEventProcessorInstance.executeTest();
             }
             else
@@ -108,16 +106,16 @@ var fsm = StateMachine({
         },
 
         onexecuteTn: function (options) {
-            console.info(colors.black.bgYellow("State: "+options.name));
+
             return options;
         },
         onreportTn: function (options) {
-            console.info(colors.black.bgYellow("State: "+options.name));
+
 
             return options;
         },
         onnoMoreTests: function (options) {
-            console.info(colors.black.bgYellow("State: "+options.name));
+
             // Stop! Do nothing.
             return options;
         },
@@ -125,7 +123,7 @@ var fsm = StateMachine({
         onresetStates: function(options)
         {
 
-            console.log("Reset sstate Machine!!");
+            console.log("Reset state Machine!");
             AnswerEventProcessorInstance.reset();
             
         }

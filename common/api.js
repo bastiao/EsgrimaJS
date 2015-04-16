@@ -88,12 +88,14 @@ var setValue = function(args){
 
 var waitForElementPresent = function(args){
     // id, timeout, group, callBackResult
-    
+    console.log("waitForElementPresent--");
     
     setTimeout(function(){
+        console.log("waitForElementPresent--expired");
+        console.log(args);
         args.callBackResult();
         
-    }, args.timeout)
+    }, args.timeout);
     
     
 
