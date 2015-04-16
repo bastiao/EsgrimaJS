@@ -50,7 +50,7 @@ jsEsgrima("t1", trigger, {id:'#search', callBackResult: function (){console.log(
         e.which = 50; // # Some key code value
         return e;
     }
-    , group:"search", function (){}},
+        , group:"search", function (){}},
     'search');
 
 jsEsgrima("t2", trigger, {id:'#results', callBackResult: function (){console.log("!t2")},event: function () {
@@ -75,13 +75,15 @@ jsEsgrima("t5", function(args){
 
         $("#search").html("Just a change in HTML");
         args.callBackResult();
+        
+        console.log(window);
+        
     }, {id:'#search', callBackResult: function (){console.log("!t4")}, event: function () {
         var e = jQuery.Event("keydown");
         e.which = 50; // # Some key code value
         return e;
     }, group:"search", function (){}},
     'search');
-
 
 /*
 jsEsgrima("Look for the result", function() {

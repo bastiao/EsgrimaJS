@@ -136,10 +136,12 @@ class EventProcessor {
 
 
         //EventProcessorInstance.sendReport();
+        console.log(this.executedTest);
         var testToExecute = this.EsgrimaInstance.getTestByName(this.executedTest);
         var self = this;
 
         this.reportedTest = {"id": self.executedTest};
+        console.log(testToExecute);
         var linkToFunction = testToExecute.args.callBackResult;
         if (testToExecute.args.originalCallBackResult===undefined)
         {

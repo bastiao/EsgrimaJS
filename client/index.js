@@ -4,14 +4,14 @@ console.log("Loading client module.");
 // Loading the tests 
 
 import {Configs, testLoader} from './configs';
-/*
-import {jsEsgrimaGroups} from '../examples/config';
-import {EsgrimaTestSuite} from '../examples/tests';*/
 
+import {jsEsgrimaGroups} from '../examples/config';
+import {EsgrimaTestSuite} from '../examples/tests';
+/*
 
 var EsgrimaTestSuite = require("../"+testLoader+"/config").EsgrimaTestSuite;
 var jsEsgrimaGroups = require("../"+testLoader+"/tests").jsEsgrimaGroups;
-
+*/
 
 import {EventProcessor} from './EventProcessor';
 import {EsgrimaInstance} from './esgrima';

@@ -51,11 +51,28 @@ console.info("\n");
 /** Start the Web Socket Server @ socket.io */
 
 var express = require('express');
+
+
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
+
 var app = express();
-var server = app.listen(Configs.port);
-var io = require('socket.io').listen(server);
+
+
 
 app.use("/web", express.static(__dirname + '/../webmanagement/'));
+
+// your express configuration here
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+var io = require('socket.io').listen(httpServer);
+httpServer.listen(Configs.port);
+httpsServer.listen(8443);
 
 // List the groups!
 
