@@ -47,6 +47,8 @@ class EventProcessor {
         });
 
         this.controller.on('disconnect', function (data) {
+            
+            
 
         });
 
@@ -139,10 +141,18 @@ class EventProcessor {
 
         this.reportedTest = {"id": self.executedTest};
         var linkToFunction = testToExecute.args.callBackResult;
+        if (testToExecute.args.originalCallBackResult===undefined)
+        {
+
+            testToExecute.args.originalCallBackResult = linkToFunction;
+
+        }
+        var linkToExec = testToExecute.args.originalCallBackResult;
+        
         var callBackResultDemo = function(){
             console.log("Finishing the operation!!! ");
             self.report(self.executedTest, self.reportedTest)
-            linkToFunction();
+            linkToExec();
         } ;
         testToExecute.args.callBackResult = callBackResultDemo;
         
