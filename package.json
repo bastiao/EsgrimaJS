@@ -37,7 +37,8 @@
     "socket.io": "1.3.5",
     "colors" : "*",
     "express": "4.12.3", 
-    "fsm-as-promised": "0.4.0"
+    "fsm-as-promised": "0.4.0",
+    "request": "*"
   },
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.js"
