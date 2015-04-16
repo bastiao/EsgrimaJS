@@ -1,5 +1,6 @@
 ![Logo](docs/logo_small.png)
-# EsgrimaJS
+# EsgrimaJS: Distributed Javascript Test Runner for Front-end Web Applications
+
 
 
 Do you need to do Javascript testing in a distributed way? With
