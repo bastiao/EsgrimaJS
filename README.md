@@ -35,6 +35,10 @@ Let's mix it together, and do a real test framework for javascript and
 web browser framework. We do not real Web Drivers, or whatever. We are embeeded on
 the application.
 
+Another clear advantage, is the possibility to run any javascript code. While in Nightwatch.js you
+are limited to their API to run your interface tests, here, you can handle javascript triggers
+and do it in a different way, like for instance, run unit tests and so on. 
+
 
 ## How to use?
 
