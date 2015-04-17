@@ -139,7 +139,7 @@ var fsm = StateMachine({
         {
 
             console.log("Reset state Machine!");
-            AnswerEventProcessorInstance.reset();
+            AnswerEventProcessorInstance.reset(options.args);
             
         }
     }

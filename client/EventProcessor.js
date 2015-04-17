@@ -18,6 +18,8 @@ class EventProcessor {
         this.groupName = EsgrimaInstance.getMyGroup();
 
         this.reportedTest = {};
+
+        this.stopTestsNOW = false;
     }
 
     start() {
@@ -39,10 +41,36 @@ class EventProcessor {
         });
 
 
+        var self = this;
+
         this.controller.on('stopTests', function (data) {
             console.log("Reset the state machine.");
             console.log("No more tests available!!");
-            fsm.stopTests();
+            console.log(data);
+            self.stopTestsNOW = true;
+
+            if (data!==undefined && data.force)
+            {
+                console.log("stopTests force");
+                setTimeout(function () {
+
+                fsm.stopTests().then(function ()
+                    {
+                        self.stopTestsNOW = false;
+                        fsm.startTests();
+                    }).catch(function (err) {
+                    console.log(err);
+                });
+               
+                },100);
+            }
+            else
+            {
+                console.log("stopTests without force");
+                fsm.stopTests()
+            }
+            
+            
 
         });
 
@@ -91,6 +119,13 @@ class EventProcessor {
         });
 
     }
+
+    isToStopTests()
+    {
+        return this.stopTestsNOW;
+    }
+
+
 
     ready() {
 
@@ -154,12 +189,23 @@ class EventProcessor {
         var callBackResultDemo = function(){
             console.log("Finishing the operation!!! ");
             self.report(self.executedTest, self.reportedTest)
+
             linkToExec();
         } ;
         testToExecute.args.callBackResult = callBackResultDemo;
-        
-        
-        testToExecute.callbackOfTests(testToExecute.args);
+        //testToExecute.callbackOfTests(testToExecute.args);
+        try{
+            testToExecute.callbackOfTests(testToExecute.args);
+        }catch (err)
+        {
+            console.log(err);
+            self.reportedTest = {'error': JSON.stringify(err)} ; 
+            testToExecute.args.callBackResult();
+
+
+            
+            //throw err;
+        }
         //this.reportedTest = {};
         
     }

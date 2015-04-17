@@ -44,17 +44,26 @@ class AnswerEventProcessor {
         
     }
     
-    reset()
+    reset(data)
     {
-
+        var reportToSend = {}
+        if (data && data.error)
+        {
+            reportToSend['force'] = true;
+        }
+        else {
+             console.log("reset without error"  );
+        }
         for (var _s in this.clientSockets)
         {
             
 
             if (this.clientSockets.hasOwnProperty(_s))
             {
-
-                this.clientSockets[_s].emit("stopTests" );
+                if (reportToSend && reportToSend.force)
+                    console.log("Emmiting stopTests" +reportToSend.force );
+                console.log("Emtiting stopTests "  );
+                this.clientSockets[_s].emit("stopTests", reportToSend );
             }
 
         }
@@ -255,6 +264,7 @@ class AnswerEventProcessor {
                 socket.on('disconnect', function(){
                     console.log("Disconnecting.");
                     console.info(colors.black.bgRed("Removed socket from client" + socket.conn.id));
+
                     delete self.clientSockets[socket.conn.id];
 
                     //resetServerStateMachine();
@@ -302,14 +312,28 @@ class AnswerEventProcessor {
 
                     socket.on('reportTn', function(data){
                         console.log("Arrived a new report from executing.");
-                        console.log(data);
+                        if (data.error)
+                        {
+                            fsm.resetStates(data);
+                            console.info(colors.white.bgBlue(data.error));
+                            self.numberOfReceivedReports = 0 ;
+                            self.numberOfWaitingAnswers = 0 ;
+                        }
+                        else
+                        {
+
+                            self.numberOfReceivedReports++;
+                            if (self.numberOfReceivedReports===self.numberOfWaitingAnswers)
+                            {
+                                fsm.reportTn();
+                            }
+
+                        }
+                            
+                        //console.log(data);
             
 
-                        self.numberOfReceivedReports++;
-                        if (self.numberOfReceivedReports===self.numberOfWaitingAnswers)
-                        {
-                            fsm.reportTn();
-                        }
+                        
                         
 
                     });

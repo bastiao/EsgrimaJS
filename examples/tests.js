@@ -77,9 +77,13 @@ jsEsgrima("t4", trigger, {id:'#search', callBackResult: function (){console.log(
 jsEsgrima("t1", function(args){
 
         var element = $('tr[role="row"]')[Math.floor(Math.random() * $('tr[role="row"]').length) ];
+        
         element.click();
+        
+        //throw "asdasdasd";
         setTimeout(function(){
             element.nextElementSibling.click();
+            element.click();
             args.callBackResult();
         }, 500);
         
@@ -90,9 +94,49 @@ jsEsgrima("t1", function(args){
 
 
 
-jsEsgrima("t11", waitForElementPresent, {id:"#searchBtnRes", timeout: 9000, group: "search",
+jsEsgrima("t11", waitForElementPresent, {id:"#searchBtnRes", timeout: 8000, group: "search",
         callBackResult: function (){console.log("!t11")}},
     'search');
+/*
+
+jsEsgrima("t3", function(args){
+
+        var counter = 0;
+        var tool = window.app.toolbar.getTool('Maximize');
+
+        var id = setInterval(function(){
+            if(counter==5){
+                args.callBackResult();
+                clearInterval(id);
+                return;
+            }
+            var c = counter%2==0 ? 2 : 0;
+            if (window.app.view.subviews[c]){
+                tool.apply(c); 
+            }
+            
+            counter++;
+        }, 2500);
+        
+        
+        
+    }, {id:'#results', callBackResult: function (){console.log("!t3")}, event: function () {}, group:"results", function (){}},
+    'results');
+
+
+
+
+
+jsEsgrima("t4", function(args){
+
+        var tool = self.app.toolbar.getTool('Maximize');
+        tool.apply(0);
+        args.callBackResult();
+        
+    }, {id:'#results', callBackResult: function (){console.log("!t4")}, event: function () {}, group:"results", function (){}},
+    'results');
+
+
 
 
 jsEsgrima("t2", function(args){
@@ -106,37 +150,7 @@ jsEsgrima("t2", function(args){
     }, {id:'#results', callBackResult: function (){console.log("!t2")}, event: function () {}, group:"results", function (){}},
     'results');
 
-jsEsgrima("t3", function(args){
 
-        var counter = 0;
-        var tool = self.app.toolbar.getTool('Maximize');
-        var id = setInterval(function(){
-            if(counter==5){
-                args.callBackResult();
-                clearInterval(id);
-                return;
-            }
-            tool.apply(counter%2==0 ? 2 : 0); 
-            counter++;
-        }, 2500);
-        
-        
-        
-    }, {id:'#results', callBackResult: function (){console.log("!t3")}, event: function () {}, group:"results", function (){}},
-    'results');
-
-
-
-
-
-/*jsEsgrima("t4", function(args){
-
-        var tool = self.app.toolbar.getTool('Maximize');
-        tool.apply(0);
-        args.callBackResult();
-        
-    }, {id:'#results', callBackResult: function (){console.log("!t4")}, event: function () {}, group:"results", function (){}},
-    'results');*/
 
  
 /*
