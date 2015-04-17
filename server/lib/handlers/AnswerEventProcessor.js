@@ -217,6 +217,7 @@ class AnswerEventProcessor {
 
                 self.clientSockets[socket.conn.id] = socket;
                 //console.info(colors.yellow.bgBlack("On Connect this sends a ready to another controller."));
+                console.info(colors.black.bgGreen("New socket is getting in from client" +socket.conn.id ));
 
                 socket.emit('ready', {
                     sentByController: true
@@ -228,21 +229,21 @@ class AnswerEventProcessor {
                     controller.emit('startTests', {});
                 }
 
-
                 socket.on('start', function(){
 
                 });
 
                 socket.on('ready', function(data){
 
+                    if (self.testLoader.getCurrentIndex() === -1)
+                    {
 
-                    
-                    //console.info(colors.yellow.bgBlack("The thing is now ready to start the pipeline."));
-                    fsm.readyToRun({"id": socket.conn.id}).catch(function (err) {
-                        console.log(err);
-                    });
+                        //console.info(colors.yellow.bgBlack("The thing is now ready to start the pipeline."));
+                        fsm.readyToRun({"id": socket.conn.id}).catch(function (err) {
+                            console.log(err);
+                        });
 
-                    
+                    }
                     
                 });
                 
@@ -253,7 +254,9 @@ class AnswerEventProcessor {
                 
                 socket.on('disconnect', function(){
                     console.log("Disconnecting.");
+                    console.info(colors.black.bgRed("Removed socket from client" + socket.conn.id));
                     delete self.clientSockets[socket.conn.id];
+
                     //resetServerStateMachine();
                 });
             });
@@ -273,7 +276,15 @@ class AnswerEventProcessor {
             var groupSocket = this.io
                 .of('/'+group)
                 .on('connection', (function (g, socket) {
+                    if (g===undefined)
+                    {
+                        console.log("There are problems with group name");
+                    }
+                    console.info(colors.black.bgGreen(g));
+                    console.info(colors.black.bgGreen("New socket is getting in from " + g + ", " + socket.conn.id ));
 
+                    self.groupsSockets[g].push(socket);
+                     console.log("[Group]Number of sockets connected: " +self.groupsSockets[g].length);
                     //console.log(self.groupsSockets[group]);
 
                     //console.log(self.groupsSockets[group]);
@@ -306,23 +317,28 @@ class AnswerEventProcessor {
 
                     socket.on('disconnect', function(){
                         console.log("Disconnecting." + g);
+                        console.log("[Group]Number of sockets connected: " +self.groupsSockets[g].length);
                         //console.log(socket);
-                        /*for (var j = 0 ; j<self.groupsSockets[group].length; j++)
+                        for (var j = 0 ; j<self.groupsSockets[g].length; j++)
                         {
-                            if (self.groupsSockets[group][j].conn.id=== socket.conn.id)
-                            {
-                                delete self.groupsSockets[group][j];
-                                
-                            }
+                            if (self.groupsSockets[g][j]!==undefined)
+                                if (self.groupsSockets[g][j].conn.id === socket.conn.id)
+                                {
+                                    console.info(colors.black.bgRed("Removed socket from " + g+", " + socket.conn.id));
+
+                                    self.groupsSockets[g].splice(j,1);
+                                    
+                                }
                             
-                        }*/
+                        }
+                        console.log("[Group]Number of sockets connected: " +self.groupsSockets[g].length);
                     })
                     
                     
                     
                 }).bind(this, group));
             console.info(colors.yellow.bgBlack("Added Socket " + group));
-            self.groupsSockets[group].push(groupSocket);
+            
             
         }
 

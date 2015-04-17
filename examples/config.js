@@ -18,7 +18,10 @@ var jsEsgrimaGroups = {
             console.log(search);
 
 
-        return search!==null;
+            return $(".container-search").length!=0;
+
+
+        //return search!==null;
 
     },
     'results' : function () {
@@ -33,7 +36,7 @@ var jsEsgrimaGroups = {
             console.log(window);
             console.log(results);
 
-        return results!==null;
+        return $(".container-search").length==0;
     }
 }
 
