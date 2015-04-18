@@ -14,7 +14,7 @@
 	<key>BackgroundGraphic</key>
 	<dict>
 		<key>Bounds</key>
-		<string>{{0, 0}, {0.125, 3132.0440979003906}}</string>
+		<string>{{0, 0}, {0.125, 3132.0439999999999}}</string>
 		<key>Class</key>
 		<string>SolidGraphic</string>
 		<key>ID</key>
@@ -1190,7 +1190,7 @@
 	<key>HPages</key>
 	<integer>2</integer>
 	<key>ImageCounter</key>
-	<integer>1</integer>
+	<integer>3</integer>
 	<key>KeepToScale</key>
 	<true/>
 	<key>Layers</key>
@@ -1228,7 +1228,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2015-04-16 21:37:16 +0000</string>
+	<string>2015-04-18 00:02:53 +0000</string>
 	<key>Modifier</key>
 	<string>Luis Bastiao</string>
 	<key>NotesVisible</key>
